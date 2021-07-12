@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 
 import debounce from "lodash.debounce";
 
-const debouncedSetMinHeight = debounce((height, setNewMinHeight) => {
-  setNewMinHeight(height);
-}, 200);
+const debouncedSetMinHeight = debounce(
+  (height: number, setNewMinHeight: (newMinHeight: number) => void) => {
+    setNewMinHeight(height);
+  },
+  200
+);
 
 /**
  * Hook custom pour qui écoute le resize de la window pour récupérer la hauteur réelle de la fenêtre.
