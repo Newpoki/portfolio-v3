@@ -1,11 +1,11 @@
 import { Grid, makeStyles } from "@material-ui/core";
 import { useMinHeight } from "common";
 import { Header } from "layout";
-import Background from "./background-dark.png";
 
 const useStyles = makeStyles<{}, { minHeight: number }>(() => ({
   root: {
     minHeight: ({ minHeight }) => minHeight,
+    backgroundImage: `url('${process.env.PUBLIC_URL}/images/bg-dark.png')`,
   },
 }));
 
