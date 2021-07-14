@@ -17,7 +17,7 @@ const useStyles = makeStyles<{}, { minHeight: number; userTheme: "light" | "dark
   },
 }));
 
-const App = () => {
+export const App = () => {
   /* Vars */
 
   const minHeight = useMinHeight();

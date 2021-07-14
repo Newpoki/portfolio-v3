@@ -19,12 +19,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-  },
 }));
 
 export const Header = ({ theme, setTheme }: IHeaderProps) => {
@@ -42,11 +36,9 @@ export const Header = ({ theme, setTheme }: IHeaderProps) => {
 
   return (
     <Grid container color="primary">
-      <AppBar position="static" color="transparent">
+      <AppBar position="static" color="transparent" className={classes.root}>
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Jason Savelli
-          </Typography>
+          <Typography variant="h6">Jason Savelli</Typography>
 
           <FormControlLabel
             control={
