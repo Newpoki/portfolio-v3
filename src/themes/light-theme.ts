@@ -1,4 +1,6 @@
-import { PaletteOptions } from "@material-ui/core/styles/createPalette";
+import { createTheme } from "@material-ui/core";
+
+import { getBaseTheme } from "./base-theme";
 
 const palette = {
   type: "dark",
@@ -23,28 +25,18 @@ const palette = {
   divider: "rgba(0, 0, 0, 0.12)",
 };
 
-export const theme = {
-  palette: palette as PaletteOptions,
+// We first create a theme only from palette in order to access
+// spacing and other theme properties inside base theme
+const partialLightTheme = createTheme({
+  palette: palette,
+});
 
-  overrides: {
-    MuiIconButton: {
-      colorPrimary: {
-        color: palette.primary.main,
-      },
-    },
-    MuiAppBar: {
-      colorPrimary: {
-        backgroundColor: "transparent",
-      },
-      root: {
-        color: palette.primary.main,
-        boxShadow: "none",
-      },
-    },
-    MuiTypography: {
-      root: {
-        color: palette.primary.main,
-      },
-    },
+const baseTheme = getBaseTheme(partialLightTheme);
+
+export const lightTheme = createTheme({
+  ...partialLightTheme,
+  ...baseTheme,
+  components: {
+    ...baseTheme.components,
   },
-};
+});

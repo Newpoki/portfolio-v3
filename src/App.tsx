@@ -1,9 +1,10 @@
-import { createMuiTheme, Grid, makeStyles, ThemeProvider } from "@material-ui/core";
-
+import { ThemeProvider } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import { useMinHeight } from "common";
 import { Header } from "layout";
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { darkTheme, lightTheme } from "themes";
+import { Home } from "home";
 
 const useStyles = makeStyles<{}, { minHeight: number; userTheme: "light" | "dark" }>(() => ({
   root: {
@@ -11,6 +12,8 @@ const useStyles = makeStyles<{}, { minHeight: number; userTheme: "light" | "dark
     backgroundImage: ({ userTheme }) =>
       `url('${process.env.PUBLIC_URL}/images/bg-${userTheme}.png')`,
     transition: "0.3s",
+    display: "flex",
+    flexDirection: "column",
   },
 }));
 
@@ -21,21 +24,14 @@ const App = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const classes = useStyles({ minHeight, userTheme: theme });
 
-  const userTheme = useMemo(
-    () => createMuiTheme(theme === "light" ? lightTheme : darkTheme),
-    [theme]
-  );
-
   /* Render */
 
   return (
-    <ThemeProvider theme={userTheme}>
-      <Grid container className={classes.root}>
-        <Grid item xs={12}>
-          <Header theme={theme} setTheme={setTheme} />
-          bijour la street
-        </Grid>
-      </Grid>
+    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+      <div className={classes.root}>
+        <Header theme={theme} setTheme={setTheme} />
+        <Home />
+      </div>
     </ThemeProvider>
   );
 };

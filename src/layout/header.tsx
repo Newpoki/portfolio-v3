@@ -1,17 +1,13 @@
 import {
   AppBar,
-  Button,
-  createStyles,
   Grid,
-  IconButton,
   Theme,
   Toolbar,
   Typography,
-  makeStyles,
   Switch,
   FormControlLabel,
 } from "@material-ui/core";
-import { Menu as MenuIcon, WbSunny as SunIcon, NightsStay as MoonIcon } from "@material-ui/icons";
+import { makeStyles } from "@material-ui/styles";
 import { ChangeEvent } from "react";
 
 interface IHeaderProps {
@@ -19,19 +15,17 @@ interface IHeaderProps {
   setTheme: (theme: "light" | "dark") => void;
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    menuButton: {
-      marginRight: theme.spacing(2),
-    },
-    title: {
-      flexGrow: 1,
-    },
-  })
-);
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 
 export const Header = ({ theme, setTheme }: IHeaderProps) => {
   /* Vars */
@@ -40,22 +34,18 @@ export const Header = ({ theme, setTheme }: IHeaderProps) => {
 
   /* Callbacks */
 
-  const handleSwitch = (evt: ChangeEvent<HTMLInputElement>, checked: boolean) => {
-    console.log({ checked });
-    setTheme(checked ? "dark" : "light");
+  const handleSwitch = (evt: ChangeEvent<HTMLInputElement>) => {
+    setTheme(evt.target.checked ? "dark" : "light");
   };
 
   /* Render */
 
   return (
     <Grid container color="primary">
-      <AppBar position="static">
+      <AppBar position="static" color="transparent">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} aria-label="menu">
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
-            News
+            Jason Savelli
           </Typography>
 
           <FormControlLabel
@@ -65,8 +55,6 @@ export const Header = ({ theme, setTheme }: IHeaderProps) => {
                 onChange={handleSwitch}
                 name="checked"
                 inputProps={{ "aria-label": "secondary checkbox" }}
-                icon={<SunIcon />}
-                checkedIcon={<MoonIcon />}
               />
             }
             label="Secondary"
