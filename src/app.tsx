@@ -1,12 +1,14 @@
+import React from "react";
 import { ThemeProvider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
-import { useMinHeight } from "common";
+
+import { useAppSelector, useMinHeight } from "common";
 import { Header } from "layout";
-import React, { useState } from "react";
 import { darkTheme, lightTheme } from "themes";
 import { Home } from "home";
+import { IThemeVariant, selectCurrentTheme } from "store";
 
-const useStyles = makeStyles<{}, { minHeight: number; userTheme: "light" | "dark" }>(() => ({
+const useStyles = makeStyles<{}, { minHeight: number; userTheme: IThemeVariant }>(() => ({
   root: {
     minHeight: ({ minHeight }) => minHeight,
     backgroundImage: ({ userTheme }) =>
@@ -18,18 +20,21 @@ const useStyles = makeStyles<{}, { minHeight: number; userTheme: "light" | "dark
 }));
 
 export const App = () => {
+  /* Store */
+
+  const currentTheme = useAppSelector(selectCurrentTheme);
+
   /* Vars */
 
   const minHeight = useMinHeight();
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const classes = useStyles({ minHeight, userTheme: theme });
+  const classes = useStyles({ minHeight, userTheme: currentTheme });
 
   /* Render */
 
   return (
-    <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+    <ThemeProvider theme={currentTheme === "light" ? lightTheme : darkTheme}>
       <div className={classes.root}>
-        <Header theme={theme} setTheme={setTheme} />
+        <Header />
         <Home />
       </div>
     </ThemeProvider>
