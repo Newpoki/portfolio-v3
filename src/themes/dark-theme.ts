@@ -33,8 +33,8 @@ export const partialDarkTheme = createTheme({
 const baseTheme = getBaseTheme(partialDarkTheme);
 
 export const darkTheme = createTheme({
-  ...partialDarkTheme,
   ...baseTheme,
+  ...partialDarkTheme,
   components: {
     ...baseTheme.components,
   },
