@@ -6,12 +6,15 @@ import { CssBaseline } from "@material-ui/core";
 import { App } from "./app";
 import reportWebVitals from "./reportWebVitals";
 import { store } from "store";
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
     <Provider store={store}>
-      <App />
+      <BrowserRouter basename="/">
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

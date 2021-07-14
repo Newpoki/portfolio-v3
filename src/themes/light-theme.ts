@@ -34,8 +34,8 @@ const partialLightTheme = createTheme({
 const baseTheme = getBaseTheme(partialLightTheme);
 
 export const lightTheme = createTheme({
-  ...partialLightTheme,
   ...baseTheme,
+  ...partialLightTheme,
   components: {
     ...baseTheme.components,
   },

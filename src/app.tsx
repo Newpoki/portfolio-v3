@@ -1,12 +1,11 @@
-import React from "react";
 import { ThemeProvider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 import { useAppSelector, useMinHeight } from "common";
-import { Header } from "layout";
+import { Header, Settings } from "layout";
 import { darkTheme, lightTheme } from "themes";
-import { Home } from "home";
 import { IThemeVariant, selectCurrentTheme } from "store";
+import { Routes } from "routes";
 
 const useStyles = makeStyles<{}, { minHeight: number; userTheme: IThemeVariant }>(() => ({
   root: {
@@ -35,7 +34,8 @@ export const App = () => {
     <ThemeProvider theme={currentTheme === "light" ? lightTheme : darkTheme}>
       <div className={classes.root}>
         <Header />
-        <Home />
+        <Routes />
+        <Settings />
       </div>
     </ThemeProvider>
   );
