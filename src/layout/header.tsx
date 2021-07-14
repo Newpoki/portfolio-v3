@@ -1,35 +1,30 @@
-import {
-  AppBar,
-  Grid,
-  Theme,
-  Toolbar,
-  Typography,
-  Switch,
-  FormControlLabel,
-} from "@material-ui/core";
-import { makeStyles } from "@material-ui/styles";
 import { ChangeEvent } from "react";
+import { AppBar, Grid, Toolbar, Typography, Switch, FormControlLabel } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 
-interface IHeaderProps {
-  theme: "light" | "dark";
-  setTheme: (theme: "light" | "dark") => void;
-}
+import { useAppDispatch, useAppSelector } from "common";
+import { selectCurrentTheme, changeCurrentTheme } from "store";
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
 }));
 
-export const Header = ({ theme, setTheme }: IHeaderProps) => {
+export const Header = () => {
+  /* Store */
+
+  const currentTheme = useAppSelector(selectCurrentTheme);
+
   /* Vars */
 
   const classes = useStyles();
+  const dispatch = useAppDispatch();
 
   /* Callbacks */
 
-  const handleSwitch = (evt: ChangeEvent<HTMLInputElement>) => {
-    setTheme(evt.target.checked ? "dark" : "light");
+  const handleCurrentThemeSwitch = (evt: ChangeEvent<HTMLInputElement>) => {
+    dispatch(changeCurrentTheme({ theme: evt.target.value === "dark" ? "light" : "dark" }));
   };
 
   /* Render */
@@ -43,13 +38,14 @@ export const Header = ({ theme, setTheme }: IHeaderProps) => {
           <FormControlLabel
             control={
               <Switch
-                checked={theme === "dark"}
-                onChange={handleSwitch}
-                name="checked"
+                checked={currentTheme === "dark"}
+                onChange={handleCurrentThemeSwitch}
+                name="theme-switch"
+                value={currentTheme}
                 inputProps={{ "aria-label": "secondary checkbox" }}
               />
             }
-            label="Secondary"
+            label={`Actual theme: ${currentTheme}`}
           />
         </Toolbar>
       </AppBar>
