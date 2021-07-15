@@ -1,4 +1,5 @@
 import { MouseEvent, useCallback, useState } from "react";
+import * as ls from "local-storage";
 import {
   Button,
   Dialog,
@@ -20,7 +21,7 @@ import {
 } from "@material-ui/icons";
 
 import { useAppDispatch, useAppSelector } from "common";
-import { changeCurrentTheme, IThemeVariant, selectCurrentTheme } from "store";
+import { changeCurrentTheme, IThemeVariant, selectCurrentTheme, THEME_LS_KEY } from "store";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -29,6 +30,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     bottom: theme.spacing(2),
   },
 }));
+
 export const Settings = () => {
   /* Store */
 
@@ -43,13 +45,13 @@ export const Settings = () => {
   /* Callbacks */
 
   const handleDialogClick = useCallback(() => {
-    console.log("allo");
     toggleIsDialogOpen(!isDialogOpen);
   }, [isDialogOpen]);
 
   const handleThemeButtonsClick = useCallback(
-    (evt: MouseEvent<HTMLElement>, newTheme: IThemeVariant) => {
-      dispatch(changeCurrentTheme({ theme: newTheme }));
+    (evt: MouseEvent<HTMLElement>, value: IThemeVariant) => {
+      dispatch(changeCurrentTheme({ theme: value }));
+      ls.set(THEME_LS_KEY, value);
     },
     [dispatch]
   );
