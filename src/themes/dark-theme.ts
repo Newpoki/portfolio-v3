@@ -1,9 +1,8 @@
-import { createTheme, PaletteOptions } from "@material-ui/core";
-import { IThemeVariant } from "store";
+import { createTheme, PaletteMode, PaletteOptions } from "@material-ui/core";
 import { getBaseTheme } from "./base-theme";
 
 const palette: PaletteOptions = {
-  mode: "dark" as IThemeVariant,
+  mode: "dark" as PaletteMode,
   primary: { main: "#fff" },
   secondary: { main: "rgba(255, 255, 255, 0.7)" },
   text: {
