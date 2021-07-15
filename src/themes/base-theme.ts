@@ -10,8 +10,9 @@ export const getBaseTheme = (theme: Theme) =>
         },
         styleOverrides: {
           root: {
-            boxShadow: "none",
             padding: theme.spacing(2),
+            boxShadow: "none",
+            background: "none",
           },
         },
       },

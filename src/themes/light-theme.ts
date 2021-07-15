@@ -1,9 +1,10 @@
-import { createTheme } from "@material-ui/core";
+import { createTheme, PaletteMode, PaletteOptions } from "@material-ui/core";
+import { IThemeVariant } from "store";
 
 import { getBaseTheme } from "./base-theme";
 
-const palette = {
-  type: "dark",
+const palette: PaletteOptions = {
+  mode: "light" as IThemeVariant,
   primary: { main: "rgba(0, 0, 0, 0.87)" },
   secondary: { main: "rgba(0, 0, 0, 0.54)" },
   text: {
@@ -14,13 +15,6 @@ const palette = {
   background: {
     default: "#fafafa",
     paper: "#fff",
-  },
-  action: {
-    active: "rgba(0, 0, 0, 0.54)",
-    hover: "rgba(0, 0, 0, 0.04)",
-    selected: "rgba(0, 0, 0, 0.08)",
-    disabled: "rgba(0, 0, 0, 0.26",
-    disabledBackground: "rgba(0, 0, 0, 0.12)",
   },
   divider: "rgba(0, 0, 0, 0.12)",
 };
@@ -38,5 +32,25 @@ export const lightTheme = createTheme({
   ...partialLightTheme,
   components: {
     ...baseTheme.components,
+
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          // backgroundColor: "red",
+        },
+        containedPrimary: {
+          $root: {
+            // backgroundColor: "red",
+          },
+        },
+
+        // root: {
+        //   backgroundColor: baseTheme.palette.background.paper,
+        // },
+        // containedPrimary: {
+        //   backgroundColor: baseTheme.palette.background.paper,
+        // },
+      },
+    },
   },
 });
