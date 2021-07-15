@@ -1,8 +1,9 @@
-import { createTheme } from "@material-ui/core";
+import { createTheme, PaletteOptions } from "@material-ui/core";
+import { IThemeVariant } from "store";
 import { getBaseTheme } from "./base-theme";
 
-const palette = {
-  type: "dark",
+const palette: PaletteOptions = {
+  mode: "dark" as IThemeVariant,
   primary: { main: "#fff" },
   secondary: { main: "rgba(255, 255, 255, 0.7)" },
   text: {
@@ -13,13 +14,6 @@ const palette = {
   background: {
     default: "#303030",
     paper: "#424242",
-  },
-  action: {
-    active: "#fff",
-    hover: "rgba(255, 255, 255, 0.08)",
-    selected: "rgba(255, 255, 255, 0.16)",
-    disabled: "rgba(255, 255, 255, 0.3)",
-    disabledBackground: "rgba(255, 255, 255, 0.12)",
   },
   divider: "rgba(255, 255, 255, 0.12)",
 };
