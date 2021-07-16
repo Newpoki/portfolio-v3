@@ -1,5 +1,5 @@
-import { RootState } from "../store";
+import { IRootState } from "../store";
 
-export const selectCurrentTheme = (state: RootState) => {
+export const selectCurrentTheme = (state: IRootState) => {
   return state.settings.theme;
 };
