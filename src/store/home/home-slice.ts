@@ -17,6 +17,9 @@ const initialState: IHomeState = {
   data: undefined,
 };
 
+/**
+ * Get the data to display on the home page
+ */
 export const getHomeData = createAsyncThunk("home/get", async () => {
   const response = await api<IHomeData>({
     method: "get",
