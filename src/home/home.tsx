@@ -38,7 +38,7 @@ export const Home = () => {
           <Typography
             variant="h1"
             sx={{
-              fontSize: { xs: 30, md: 60 },
+              fontSize: { xs: 40, md: 60 },
               textAlign: { xs: "center", md: "left" },
             }}
           >
@@ -48,7 +48,7 @@ export const Home = () => {
           <Typography
             variant="h2"
             sx={{
-              fontSize: { xs: 20, md: 50 },
+              fontSize: { xs: 25, md: 50 },
               textAlign: { xs: "center", md: "left" },
             }}
           >
@@ -58,7 +58,7 @@ export const Home = () => {
           <Typography
             variant="h2"
             sx={{
-              fontSize: { xs: 20, md: 50 },
+              fontSize: { xs: 25, md: 50 },
               textAlign: { xs: "center", md: "left" },
             }}
           >
