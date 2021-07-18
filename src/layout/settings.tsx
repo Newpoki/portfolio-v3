@@ -1,12 +1,15 @@
 import { MouseEvent, useCallback, useState } from "react";
 import * as ls from "local-storage";
 import {
+  Autocomplete,
+  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Fab,
+  TextField,
   Theme,
   ToggleButton,
   ToggleButtonGroup,
@@ -21,7 +24,19 @@ import {
 } from "@material-ui/icons";
 
 import { useAppDispatch, useAppSelector } from "common";
-import { changeCurrentTheme, IThemeVariant, selectCurrentTheme, THEME_LS_KEY } from "store";
+import {
+  changeCurrentTheme,
+  IThemeVariant,
+  selectAvailableLocales,
+  selectCurrentLocaleCode,
+  selectCurrentTheme,
+  THEME_LS_KEY,
+  changeCurrentLocaleCode,
+  getAvailableLocales,
+  ILocale,
+  selectIsLoadingAvailableLocales,
+} from "store";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -31,10 +46,30 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+type ILocaleOption = ILocale & {
+  label: ILocale["name"];
+  flagKey: string;
+};
+
+/**
+ * Convert an ISO 3166-1 alpha-2 locale code to flag char code
+ * https://next.material-ui.com/components/autocomplete/#country-select
+ */
+function countryToFlag(isoCode: string) {
+  return typeof String.fromCodePoint !== "undefined"
+    ? isoCode
+        .toUpperCase()
+        .replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
+    : isoCode;
+}
+
 export const Settings = () => {
   /* Store */
 
   const currentTheme = useAppSelector(selectCurrentTheme);
+  const availableLocales = useAppSelector(selectAvailableLocales);
+  const currentLocaleCode = useAppSelector(selectCurrentLocaleCode);
+  const isLoadingAvailableLocales = useAppSelector(selectIsLoadingAvailableLocales);
 
   /* Vars */
 
@@ -42,12 +77,27 @@ export const Settings = () => {
   const dispatch = useAppDispatch();
   const [isDialogOpen, toggleIsDialogOpen] = useState(false);
 
+  /* Memos */
+
+  const localesOptions: Array<ILocaleOption> =
+    availableLocales?.map((locale) => {
+      return {
+        ...locale,
+        label: locale.name,
+        flagKey: locale.code.split("-")[1] ?? locale.code.split("-")[0],
+      };
+    }) ?? [];
+
+  const currentLocale = localesOptions.find((locale) => locale.code === currentLocaleCode);
+
   /* Callbacks */
 
-  const handleDialogClick = useCallback(() => {
+  /** Open or close the settings dialog */
+  const handleSettingsIconClick = useCallback(() => {
     toggleIsDialogOpen(!isDialogOpen);
   }, [isDialogOpen]);
 
+  /** Change the theme of the application and save it in local-storage */
   const handleThemeButtonsClick = useCallback(
     (evt: MouseEvent<HTMLElement>, value: IThemeVariant) => {
       dispatch(changeCurrentTheme({ theme: value }));
@@ -56,6 +106,7 @@ export const Settings = () => {
     [dispatch]
   );
 
+  /** Handle material ui dialog internal closing system  */
   const onDialogClose = useCallback(
     (evt: MouseEvent<HTMLDivElement>, reason: "backdropClick" | "escapeKeyDown") => {
       if (reason !== "backdropClick") {
@@ -65,16 +116,37 @@ export const Settings = () => {
     []
   );
 
+  /** Close the dialog */
   const onCloseButtonClick = useCallback(() => {
     toggleIsDialogOpen(false);
   }, []);
 
+  /**
+   * Change the current locale code
+   */
+  const handleLanguageChange = useCallback(
+    (evt, selectedOption: ILocaleOption | null) => {
+      dispatch(changeCurrentLocaleCode({ localeCode: selectedOption?.code ?? "fr-FR" }));
+    },
+    [dispatch]
+  );
+
+  /* Effects */
+
+  useEffect(() => {
+    dispatch(getAvailableLocales());
+  }, [dispatch]);
+
   /* Render */
+
+  if (isLoadingAvailableLocales || !availableLocales || !currentLocale) {
+    return null;
+  }
 
   return (
     <>
       <div className={classes.root}>
-        <Fab color="primary" onClick={handleDialogClick}>
+        <Fab color="primary" onClick={handleSettingsIconClick}>
           <SettingsIcon />
         </Fab>
       </div>
@@ -88,29 +160,59 @@ export const Settings = () => {
       >
         <DialogTitle>Settings</DialogTitle>
         <DialogContent>
-          <Typography marginBottom={1}>Choix du theme</Typography>
+          <Typography sx={{ marginBottom: 1 }}>Choix du theme</Typography>
 
           <ToggleButtonGroup
             exclusive
             onChange={handleThemeButtonsClick}
             aria-label="text alignment"
             value={currentTheme}
+            sx={{ marginBottom: 3 }}
           >
             <ToggleButton value="light" aria-label="left aligned">
-              <SunIcon sx={{ mr: 1 }} />
+              <SunIcon sx={{ marginRight: 1 }} />
               <span>light</span>
             </ToggleButton>
 
             <ToggleButton value="system" aria-label="centered">
-              <SystemIcon sx={{ mr: 1 }} />
+              <SystemIcon sx={{ marginRight: 1 }} />
               <span>System</span>
             </ToggleButton>
 
             <ToggleButton value="dark" aria-label="right aligned">
-              <MoonIcon sx={{ mr: 1 }} />
+              <MoonIcon sx={{ marginRight: 1 }} />
               <span>dark</span>
             </ToggleButton>
           </ToggleButtonGroup>
+
+          <Typography sx={{ marginBottom: 1 }}>Choix de la langue</Typography>
+
+          <Autocomplete
+            disablePortal
+            options={localesOptions ?? []}
+            sx={{ width: 300 }}
+            value={currentLocale}
+            onChange={handleLanguageChange}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Language"
+                InputProps={{
+                  ...params.InputProps,
+                  startAdornment: countryToFlag(currentLocale?.flagKey),
+                }}
+              />
+            )}
+            disableClearable
+            renderOption={(props, option) => {
+              return (
+                <Box component="li" {...props}>
+                  <span aria-label="country-flag-icon">{countryToFlag(option.flagKey)}</span>
+                  <Typography sx={{ marginLeft: 1 }}>{option.label}</Typography>
+                </Box>
+              );
+            }}
+          />
         </DialogContent>
         <DialogActions sx={{ justifyContent: "center" }}>
           <Button onClick={onCloseButtonClick} variant="contained" color="primary">
