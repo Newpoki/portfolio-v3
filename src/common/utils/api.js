@@ -7,9 +7,8 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 export const api = async function <TRequestData>(
   config: AxiosRequestConfig
 ): Promise<AxiosResponse<TRequestData>> {
-  // TODO: Utiliser variable env pour definir baseUrl
   return await axios({
     ...config,
-    baseURL: "http://localhost:1337",
+    baseURL: process.env.REACT_APP_API_BASE_URL,
   });
 };
