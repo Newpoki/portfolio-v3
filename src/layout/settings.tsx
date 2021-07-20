@@ -35,6 +35,8 @@ import {
   getAvailableLocales,
   ILocale,
   selectIsLoadingAvailableLocales,
+  DEFAULT_LOCALE_CODE,
+  CURRENT_LOCALE_LS_KEY,
 } from "store";
 import { useEffect } from "react";
 
@@ -126,7 +128,10 @@ export const Settings = () => {
    */
   const handleLanguageChange = useCallback(
     (evt, selectedOption: ILocaleOption | null) => {
-      dispatch(changeCurrentLocaleCode({ localeCode: selectedOption?.code ?? "fr-FR" }));
+      const newLocaleCode = selectedOption?.code ?? DEFAULT_LOCALE_CODE;
+
+      dispatch(changeCurrentLocaleCode({ localeCode: newLocaleCode }));
+      ls.set(CURRENT_LOCALE_LS_KEY, newLocaleCode);
     },
     [dispatch]
   );
