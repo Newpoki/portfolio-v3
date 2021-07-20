@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { api } from "common";
 import * as ls from "local-storage";
 
-import { THEME_LS_KEY } from "./settings-constants";
+import { CURRENT_LOCALE_LS_KEY, DEFAULT_LOCALE_CODE, THEME_LS_KEY } from "./settings-constants";
 
 export type IThemeVariant = PaletteMode | "system";
 
@@ -40,7 +40,7 @@ const initialState: ISettingsState = {
   locales: {
     isLoading: false,
     data: null,
-    currentCode: "fr-FR",
+    currentCode: ls.get(CURRENT_LOCALE_LS_KEY) ?? DEFAULT_LOCALE_CODE,
   },
 };
 
