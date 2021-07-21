@@ -3,7 +3,8 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { api } from "common";
 import * as ls from "local-storage";
 
-import { CURRENT_LOCALE_LS_KEY, DEFAULT_LOCALE_CODE, THEME_LS_KEY } from "./settings-constants";
+import { THEME_LS_KEY } from "./settings-constants";
+import { getDefaultLocaleCode } from "./settings-utils";
 
 export type IThemeVariant = PaletteMode | "system";
 
@@ -42,7 +43,8 @@ const initialState: ISettingsState = {
   locales: {
     isLoading: false,
     data: null,
-    currentCode: ls.get(CURRENT_LOCALE_LS_KEY) ?? DEFAULT_LOCALE_CODE,
+    currentCode: getDefaultLocaleCode(),
+    // currentCode: ls.get(CURRENT_LOCALE_LS_KEY) ?? DEFAULT_LOCALE_CODE,
   },
 };
 
