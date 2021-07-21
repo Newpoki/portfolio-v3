@@ -1,9 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-
+import * as rtk from "@reduxjs/toolkit";
 import { settingsSlice } from "./settings/settings-slice";
 import { homeSlice } from "./home/home-slice";
 
-export const store = configureStore({
+export const store = rtk.configureStore({
   reducer: {
     settings: settingsSlice.reducer,
     home: homeSlice.reducer,
@@ -16,4 +15,4 @@ export const store = configureStore({
 // Infer the `IRootState` and `AppDispatch` types from the store itself
 export type IRootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch;
+export type IAppDispatch = typeof store.dispatch;
