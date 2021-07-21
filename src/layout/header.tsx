@@ -1,6 +1,7 @@
 import { AppBar, Toolbar, Theme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   link: {
@@ -17,6 +18,7 @@ export const Header = () => {
   /* Vars */
 
   const classes = useStyles();
+  const { t } = useTranslation("HOME");
 
   /* Render */
 
@@ -28,16 +30,14 @@ export const Header = () => {
     >
       <Toolbar sx={{ justifyContent: "space-between", width: 600 }}>
         <NavLink to="/" className={classes.link}>
-          home
-        </NavLink>
-        <NavLink to="/timeline" className={classes.link}>
-          timeline
+          {t("HOME:MENU.HOME")}
         </NavLink>
         <NavLink to="/cv" className={classes.link}>
-          mon cv
+          {t("HOME:MENU.CV")}
         </NavLink>
+
         <NavLink to="/contact" className={classes.link}>
-          contactez moi
+          {t("HOME:MENU.CONTACT")}
         </NavLink>
 
         {/* <FormControlLabel

@@ -1,5 +1,6 @@
 import { MouseEvent, useCallback, useState } from "react";
 import * as ls from "local-storage";
+import { useTranslation } from "react-i18next";
 import {
   Autocomplete,
   Box,
@@ -75,6 +76,7 @@ export const Settings = () => {
 
   /* Vars */
 
+  const { i18n } = useTranslation();
   const classes = useStyles();
   const dispatch = useAppDispatch();
   const [isDialogOpen, toggleIsDialogOpen] = useState(false);
@@ -132,8 +134,9 @@ export const Settings = () => {
 
       dispatch(changeCurrentLocaleCode({ localeCode: newLocaleCode }));
       ls.set(CURRENT_LOCALE_LS_KEY, newLocaleCode);
+      i18n.changeLanguage(newLocaleCode);
     },
-    [dispatch]
+    [dispatch, i18n]
   );
 
   /* Effects */
