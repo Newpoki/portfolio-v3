@@ -1,5 +1,5 @@
 export { store } from "./store";
-export type { AppDispatch, IRootState } from "./store";
+export type { IAppDispatch, IRootState } from "./store";
 
 // SETTINGS
 export * from "./settings/settings-selectors";

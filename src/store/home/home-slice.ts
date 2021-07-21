@@ -1,4 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { ILocaleCode } from "./../settings/settings-slice";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "common";
 
 interface IHomeData {
@@ -20,14 +21,20 @@ const initialState: IHomeState = {
 /**
  * Get the data to display on the home page
  */
-export const getHomeData = createAsyncThunk("home/get", async () => {
-  const response = await api<IHomeData>({
-    method: "get",
-    url: "/home",
-  });
+export const getHomeData = createAsyncThunk(
+  "home/get",
+  async ({ locale }: { locale: ILocaleCode }) => {
+    const response = await api<IHomeData>({
+      method: "get",
+      url: "/home",
+      params: {
+        _locale: locale,
+      },
+    });
 
-  return { data: response.data };
-});
+    return { data: response.data };
+  }
+);
 
 export const homeSlice = createSlice({
   name: "home",

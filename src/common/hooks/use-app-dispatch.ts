@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "store/store";
+import { IAppDispatch } from "store/store";
 
 // https://redux-toolkit.js.org/tutorials/typescript#define-typed-hooks
-export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppDispatch = () => useDispatch<IAppDispatch>();

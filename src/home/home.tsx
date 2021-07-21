@@ -2,7 +2,7 @@ import { Typography } from "@material-ui/core";
 import { useEffect } from "react";
 
 import { Page, useAppDispatch, useAppSelector } from "common";
-import { getHomeData } from "store";
+import { getHomeData, selectCurrentLocaleCode } from "store";
 import { selectHomeData, selectIsLoadingHomeData } from "store";
 import { HomeSkeleton } from "./home-skeleton";
 
@@ -11,6 +11,7 @@ export const Home = () => {
 
   const homeData = useAppSelector(selectHomeData);
   const isLoadingHomeData = useAppSelector(selectIsLoadingHomeData);
+  const currentLocaleCode = useAppSelector(selectCurrentLocaleCode);
 
   /* Vars */
 
@@ -19,8 +20,8 @@ export const Home = () => {
   /* Effects */
 
   useEffect(() => {
-    dispatch(getHomeData());
-  }, [dispatch]);
+    dispatch(getHomeData({ locale: currentLocaleCode }));
+  }, [currentLocaleCode, dispatch]);
 
   /* Render */
 
