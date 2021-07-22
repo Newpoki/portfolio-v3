@@ -25,6 +25,10 @@ export const Home = () => {
 
   /* Render */
 
+  if (isLoadingHomeData || !homeData) {
+    return <HomeSkeleton />;
+  }
+
   return (
     <Page
       sx={{
@@ -32,41 +36,35 @@ export const Home = () => {
         justifyContent: { xs: "center" },
       }}
     >
-      {isLoadingHomeData || !homeData ? (
-        <HomeSkeleton />
-      ) : (
-        <>
-          <Typography
-            variant="h1"
-            sx={{
-              fontSize: { xs: 40, md: 60 },
-              textAlign: { xs: "center", md: "left" },
-            }}
-          >
-            {homeData.name}
-          </Typography>
+      <Typography
+        variant="h1"
+        sx={{
+          fontSize: { xs: 40, md: 60 },
+          textAlign: { xs: "center", md: "left" },
+        }}
+      >
+        {homeData.name}
+      </Typography>
 
-          <Typography
-            variant="h2"
-            sx={{
-              fontSize: { xs: 25, md: 50 },
-              textAlign: { xs: "center", md: "left" },
-            }}
-          >
-            {homeData.job_title}
-          </Typography>
+      <Typography
+        variant="h2"
+        sx={{
+          fontSize: { xs: 25, md: 50 },
+          textAlign: { xs: "center", md: "left" },
+        }}
+      >
+        {homeData.job_title}
+      </Typography>
 
-          <Typography
-            variant="h2"
-            sx={{
-              fontSize: { xs: 25, md: 50 },
-              textAlign: { xs: "center", md: "left" },
-            }}
-          >
-            {homeData.job_libraries}
-          </Typography>
-        </>
-      )}
+      <Typography
+        variant="h2"
+        sx={{
+          fontSize: { xs: 25, md: 50 },
+          textAlign: { xs: "center", md: "left" },
+        }}
+      >
+        {homeData.job_libraries}
+      </Typography>
     </Page>
   );
 };

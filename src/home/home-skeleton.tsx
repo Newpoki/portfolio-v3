@@ -1,8 +1,16 @@
 import { Skeleton, Typography } from "@material-ui/core";
+import { Page } from "common";
 
 export const HomeSkeleton = () => {
+  /* Render */
+
   return (
-    <>
+    <Page
+      sx={{
+        padding: 5,
+        justifyContent: { xs: "center" },
+      }}
+    >
       <Typography
         variant="h1"
         sx={{
@@ -35,6 +43,6 @@ export const HomeSkeleton = () => {
       >
         <Skeleton />
       </Typography>
-    </>
+    </Page>
   );
 };

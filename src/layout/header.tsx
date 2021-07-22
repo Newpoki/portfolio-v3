@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     textDecoration: "none",
     fontWeight: theme.typography.fontWeightMedium,
     fontSize: 25,
-    opacity: 0.8,
+    opacity: 0.9,
   },
 }));
 
@@ -39,19 +39,6 @@ export const Header = () => {
         <NavLink to="/contact" className={classes.link}>
           {t("HOME:MENU.CONTACT")}
         </NavLink>
-
-        {/* <FormControlLabel
-          control={
-            <Switch
-              checked={currentTheme === "dark"}
-              onChange={handleCurrentThemeSwitch}
-              name="theme-switch"
-              value={currentTheme}
-              inputProps={{ "aria-label": "secondary checkbox" }}
-            />
-          }
-          label={`Actual theme: ${currentTheme}`}
-        /> */}
       </Toolbar>
     </AppBar>
   );
