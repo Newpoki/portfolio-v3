@@ -16,7 +16,7 @@ import {
   Brightness4 as MoonIcon,
   SettingsBrightness as SystemIcon,
 } from "@material-ui/icons";
-import { MouseEvent, useCallback, useMemo } from "react";
+import { MouseEvent, useCallback, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import * as ls from "local-storage";
 
@@ -26,6 +26,8 @@ import {
   changeCurrentTheme,
   CURRENT_LOCALE_LS_KEY,
   DEFAULT_LOCALE_CODE,
+  getAvailableLocales,
+  ILocale,
   IThemeVariant,
   selectAvailableLocales,
   selectCurrentLocaleCode,
@@ -33,8 +35,12 @@ import {
   selectIsLoadingAvailableLocales,
   THEME_LS_KEY,
 } from "store";
-import { ILocaleOption } from "./settings";
+import { SettingsDialogSkeleton } from "./settings-dialog-skeleton";
 
+export type ILocaleOption = ILocale & {
+  label: ILocale["name"];
+  flagKey: string;
+};
 interface ISettingsDialogProps {
   isDialogOpen: boolean;
   toggleIsDialogOpen: (isDialogOpen: boolean) => void;
@@ -132,10 +138,16 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
     [dispatch, i18n]
   );
 
+  /* Effects */
+
+  useEffect(() => {
+    dispatch(getAvailableLocales());
+  }, [dispatch]);
+
   /* Render */
 
   if (isLoadingAvailableLocales || !availableLocales || !currentLocale) {
-    return null;
+    return <SettingsDialogSkeleton isDisplayed={isDialogOpen} />;
   }
 
   return (
