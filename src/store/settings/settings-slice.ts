@@ -36,15 +36,12 @@ export const getAvailableLocales = createAsyncThunk("settings/locales", async ()
   return { data: response.data };
 });
 
-// TODO: Mettre la langue du navigateur par défaut PUIS français si on trouve rien pour X raisons
-
 const initialState: ISettingsState = {
   theme: ls.get(THEME_LS_KEY) ?? "system",
   locales: {
     isLoading: false,
     data: null,
     currentCode: getDefaultLocaleCode(),
-    // currentCode: ls.get(CURRENT_LOCALE_LS_KEY) ?? DEFAULT_LOCALE_CODE,
   },
 };
 

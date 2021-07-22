@@ -94,12 +94,17 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
   /* Callbacks */
 
   /**
-   * Change the theme of the application and save it in local-storage
+   * Change the theme of the application and save it in local-storage.
+   *
+   * `value` can be null as the value comes from ToggleButtonGroup component with exclusive prop.
+   * It means that if user select the already selected option, it returns null.
    */
   const handleThemeButtonsClick = useCallback(
-    (evt: MouseEvent<HTMLElement>, value: IThemeVariant) => {
-      dispatch(changeCurrentTheme({ theme: value }));
-      ls.set(THEME_LS_KEY, value);
+    (evt: MouseEvent<HTMLElement>, value: IThemeVariant | null) => {
+      if (value) {
+        dispatch(changeCurrentTheme({ theme: value }));
+        ls.set(THEME_LS_KEY, value);
+      }
     },
     [dispatch]
   );
