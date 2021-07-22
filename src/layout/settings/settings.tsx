@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { Fab, Theme } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 import { Settings as SettingsIcon } from "@material-ui/icons";
+import { useTranslation } from "react-i18next";
 
 import { SettingsDialog } from "./settings-dialog";
 
@@ -16,6 +17,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 export const Settings = () => {
   /* Vars */
 
+  const { t } = useTranslation("SETTINGS");
   const classes = useStyles();
   const [isDialogOpen, toggleIsDialogOpen] = useState(false);
 
@@ -29,7 +31,12 @@ export const Settings = () => {
   return (
     <>
       <div className={classes.root}>
-        <Fab color="primary" onClick={handleSettingsIconClick} aria-label="settings">
+        <Fab
+          color="primary"
+          onClick={handleSettingsIconClick}
+          aria-label={t("SETTINGS:BUTTON.ARIA.LABEL")}
+          aria-describedby={t("SETTINGS:BUTTON.ARIA.DESCRIBED_BY")}
+        >
           <SettingsIcon />
         </Fab>
       </div>

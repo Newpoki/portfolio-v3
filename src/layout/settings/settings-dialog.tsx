@@ -69,7 +69,7 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
   /* Vars */
 
   const dispatch = useAppDispatch();
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   /* Memos */
 
@@ -159,38 +159,38 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
     <Dialog
       open={isDialogOpen}
       onClose={onDialogClose}
-      aria-labelledby="settings-dialog"
-      aria-describedby="allow-user-to-change-theme-and-language"
+      aria-labelledby={t("SETTINGS:DIALOG.ARIA.LABEL")}
+      aria-describedby={t("SETTINGS:DIALOG.ARIA.DESCRIBED_BY")}
       color="primary"
     >
-      <DialogTitle>Settings</DialogTitle>
+      <DialogTitle>{t("SETTINGS:DIALOG.TITLE")}</DialogTitle>
       <DialogContent>
-        <Typography sx={{ marginBottom: 1 }}>Choix du theme</Typography>
+        <Typography sx={{ marginBottom: 1 }}>{t("SETTINGS:DIALOG.THEME.TITLE")}</Typography>
 
         <ToggleButtonGroup
           exclusive
           onChange={handleThemeButtonsClick}
-          aria-label="text alignment"
+          aria-label={t("SETTINGS:DIALOG.THEME.BUTTON_GROUP.ARIA.LABEL")}
           value={currentTheme}
           sx={{ marginBottom: 3 }}
         >
           <ToggleButton value="light" aria-label="left aligned">
             <SunIcon sx={{ marginRight: 1 }} />
-            <span>light</span>
+            <span>{t("SETTINGS:DIALOG.THEME.LIGHT")}</span>
           </ToggleButton>
 
           <ToggleButton value="system" aria-label="centered">
             <SystemIcon sx={{ marginRight: 1 }} />
-            <span>System</span>
+            <span>{t("SETTINGS:DIALOG.THEME.SYSTEM")}</span>
           </ToggleButton>
 
           <ToggleButton value="dark" aria-label="right aligned">
             <MoonIcon sx={{ marginRight: 1 }} />
-            <span>dark</span>
+            <span>{t("SETTINGS:DIALOG.THEME.DARK")}</span>
           </ToggleButton>
         </ToggleButtonGroup>
 
-        <Typography sx={{ marginBottom: 1 }}>Choix de la langue</Typography>
+        <Typography sx={{ marginBottom: 1 }}>{t("SETTINGS:DIALOG.LANGUAGE.TITLE")}</Typography>
 
         <Autocomplete
           disablePortal
@@ -201,7 +201,7 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Language"
+              label={t("SETTINGS:DIALOG.LANGUAGE.FIELD.LABEL")}
               InputProps={{
                 ...params.InputProps,
                 startAdornment: countryToFlag(currentLocale?.flagKey),
@@ -212,7 +212,9 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
           renderOption={(props, option) => {
             return (
               <Box component="li" {...props}>
-                <span aria-label="country-flag-icon">{countryToFlag(option.flagKey)}</span>
+                <span aria-label={t("SETTINGS:DIALOG.LANGUAGE.FIELD.FLAG_ICON.ARIA.LABEL")}>
+                  {countryToFlag(option.flagKey)}
+                </span>
                 <Typography sx={{ marginLeft: 1 }}>{option.label}</Typography>
               </Box>
             );
