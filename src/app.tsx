@@ -2,7 +2,7 @@ import { PaletteMode, ThemeProvider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
 import { useCurrentTheme, useMinHeight } from "common";
-import { Header, Settings } from "layout";
+import { Menu, Settings } from "layout";
 import { darkTheme, lightTheme } from "themes";
 import { Routes } from "routes";
 
@@ -29,7 +29,7 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <div className={classes.root}>
-        <Header />
+        <Menu />
         <Routes />
         <Settings />
       </div>

@@ -1,2 +1,2 @@
-export { Header } from "./header";
+export { Menu } from "./menu/menu";
 export { Settings } from "./settings/settings";

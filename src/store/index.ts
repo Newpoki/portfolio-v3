@@ -8,6 +8,7 @@ export {
   changeCurrentTheme,
   changeCurrentLocaleCode,
   getAvailableLocales,
+  toggleDrawer,
 } from "./settings/settings-slice";
 export type { IThemeVariant, ILocale, ILocaleCode } from "./settings/settings-slice";
 
