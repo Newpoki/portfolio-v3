@@ -1,7 +1,7 @@
-import { frFRHomeTranslations } from "./home";
+import { frFRMenuTranslations } from "./menu";
 import { frFRSettingsTranslations } from "./settings";
 
 export const frFRTranslation = {
-  ...frFRHomeTranslations,
+  ...frFRMenuTranslations,
   ...frFRSettingsTranslations,
 };

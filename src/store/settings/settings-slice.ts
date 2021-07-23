@@ -22,6 +22,9 @@ interface ISettingsState {
     data: ILocale[] | null;
     currentCode: ILocaleCode;
   };
+  drawer: {
+    isOpen: boolean;
+  };
 }
 
 /**
@@ -43,6 +46,9 @@ const initialState: ISettingsState = {
     data: null,
     currentCode: getDefaultLocaleCode(),
   },
+  drawer: {
+    isOpen: false,
+  },
 };
 
 export const settingsSlice = createSlice({
@@ -54,6 +60,9 @@ export const settingsSlice = createSlice({
     },
     changeCurrentLocaleCode: (state, action: PayloadAction<{ localeCode: ILocaleCode }>) => {
       state.locales.currentCode = action.payload.localeCode;
+    },
+    toggleDrawer: (state, action: PayloadAction<{ isOpen: boolean }>) => {
+      state.drawer.isOpen = action.payload.isOpen;
     },
   },
   extraReducers: (builder) => {
@@ -72,4 +81,4 @@ export const settingsSlice = createSlice({
   },
 });
 
-export const { changeCurrentTheme, changeCurrentLocaleCode } = settingsSlice.actions;
+export const { changeCurrentTheme, changeCurrentLocaleCode, toggleDrawer } = settingsSlice.actions;
