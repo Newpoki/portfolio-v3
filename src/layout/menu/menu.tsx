@@ -17,7 +17,7 @@ export const Menu = () => {
 
   const theme = useTheme();
   const { t } = useTranslation("MENU");
-  const isUnderSm = useMediaQuery(theme.breakpoints.down("sm"));
+  const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
   const dispatch = useAppDispatch();
 
   /* Callbacks */
@@ -35,10 +35,10 @@ export const Menu = () => {
    * Close the drawer if it's open and trigger a breakpoint where its not displayed
    */
   useEffect(() => {
-    if (!isUnderSm && isDrawerOpen) {
+    if (!isUnderMd && isDrawerOpen) {
       dispatch(toggleDrawer({ isOpen: false }));
     }
-  }, [dispatch, isUnderSm, isDrawerOpen]);
+  }, [dispatch, isUnderMd, isDrawerOpen]);
 
   /* Render */
 
@@ -50,7 +50,7 @@ export const Menu = () => {
         flexDirection: "row",
         justifyContent: {
           xs: "inherit",
-          sm: "center",
+          md: "center",
         },
       }}
     >
@@ -63,7 +63,7 @@ export const Menu = () => {
         sx={{
           marginRight: 2,
           display: {
-            sm: "none",
+            md: "none",
           },
         }}
       >
@@ -76,7 +76,7 @@ export const Menu = () => {
           width: 600,
           display: {
             xs: "none",
-            sm: "flex",
+            md: "flex",
           },
         }}
       >
@@ -91,7 +91,7 @@ export const Menu = () => {
           keepMounted: true,
         }}
         sx={{
-          display: { sm: "none" },
+          display: { md: "none" },
         }}
         PaperProps={{
           sx: {
