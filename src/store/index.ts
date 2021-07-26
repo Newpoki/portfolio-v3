@@ -15,3 +15,8 @@ export type { IThemeVariant, ILocale, ILocaleCode } from "./settings/settings-sl
 // HOME
 export * from "./home/home-selectors";
 export { getHomeData } from "./home/home-slice";
+
+// CV
+export * from "./cv/cv-selectors";
+export { getCvData } from "./cv/cv-slice";
+export type { ICvData } from "./cv/cv-slice";

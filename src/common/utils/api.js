@@ -1,5 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
+export type ISortOrder = "ASC" | "DESC";
+
 /**
  * Handle the API request to the backend
  * @param {AxiosRequestConfig} config The API call config options

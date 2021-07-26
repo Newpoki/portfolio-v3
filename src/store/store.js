@@ -1,11 +1,13 @@
 import * as rtk from "@reduxjs/toolkit";
 import { settingsSlice } from "./settings/settings-slice";
 import { homeSlice } from "./home/home-slice";
+import { cvSlice } from "./cv/cv-slice";
 
 export const store = rtk.configureStore({
   reducer: {
     settings: settingsSlice.reducer,
     home: homeSlice.reducer,
+    cv: cvSlice.reducer,
   },
   devTools: true,
 });
