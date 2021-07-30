@@ -8,12 +8,20 @@ import { Routes } from "routes";
 
 const useStyles = makeStyles<{}, { minHeight: number; userTheme: PaletteMode }>(() => ({
   root: {
-    minHeight: ({ minHeight }) => minHeight,
+    // minHeight: ({ minHeight }) => minHeight,
+    maxHeight: "100vh",
     backgroundImage: ({ userTheme }) =>
       `url('${process.env.PUBLIC_URL}/images/bg-${userTheme}.png')`,
     transition: "0.3s",
     display: "flex",
     flexDirection: "column",
+    overflow: "hidden",
+  },
+  app: {
+    minHeight: ({ minHeight }) => minHeight,
+    display: "flex",
+    flexDirection: "column",
+    overflow: "auto",
   },
 }));
 
@@ -29,9 +37,11 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <div className={classes.root}>
-        <Menu />
-        <Routes />
-        <Settings />
+        <div className={classes.app}>
+          <Menu />
+          <Routes />
+          <Settings />
+        </div>
       </div>
     </ThemeProvider>
   );

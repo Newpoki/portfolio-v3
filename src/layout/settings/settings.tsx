@@ -9,8 +9,8 @@ import { SettingsDialog } from "./settings-dialog";
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     position: "absolute",
-    right: theme.spacing(2),
-    bottom: theme.spacing(2),
+    right: theme.spacing(4),
+    bottom: theme.spacing(4),
   },
 }));
 
