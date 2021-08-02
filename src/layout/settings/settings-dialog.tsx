@@ -10,6 +10,8 @@ import {
   ToggleButton,
   ToggleButtonGroup,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 import {
   Brightness7 as SunIcon,
@@ -70,6 +72,8 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
 
   const dispatch = useAppDispatch();
   const { t, i18n } = useTranslation();
+  const theme = useTheme();
+  const isUnderSm = useMediaQuery(theme.breakpoints.down("sm"));
 
   /* Memos */
 
@@ -162,6 +166,7 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
       aria-labelledby={t("SETTINGS:DIALOG.ARIA.LABEL")}
       aria-describedby={t("SETTINGS:DIALOG.ARIA.DESCRIBED_BY")}
       color="primary"
+      fullScreen={isUnderSm}
     >
       <DialogTitle>{t("SETTINGS:DIALOG.TITLE")}</DialogTitle>
       <DialogContent>
@@ -195,9 +200,9 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
         <Autocomplete
           disablePortal
           options={localesOptions ?? []}
-          sx={{ width: 300 }}
           value={currentLocale}
           onChange={handleLanguageChange}
+          fullWidth
           renderInput={(params) => (
             <TextField
               {...params}
