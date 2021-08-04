@@ -1,4 +1,4 @@
-import { TimelineDot } from "@material-ui/lab";
+import { Skeleton, TimelineDot } from "@material-ui/lab";
 import { ICvData } from "store";
 import {
   WorkOutline as WorkOutlineIcon,
@@ -6,9 +6,10 @@ import {
   CardMembership as CardMembershipIcon,
 } from "@material-ui/icons";
 import { SxProps, Theme } from "@material-ui/system";
+import { Typography } from "@material-ui/core";
 
 interface ICvTimeLineDotProps {
-  type: ICvData["type"];
+  type: ICvData["type"] | "loading";
   sx?: SxProps<Theme>;
 }
 
@@ -20,6 +21,12 @@ const getIcon = (type: ICvTimeLineDotProps["type"]) => {
       return <ChildFriendlyOutlinedIcon color="primary" />;
     case "diploma":
       return <CardMembershipIcon color="primary" />;
+    case "loading":
+      return (
+        <Typography color="primary">
+          <Skeleton variant="circular" width={24} height={24} />;
+        </Typography>
+      );
   }
 };
 
@@ -30,5 +37,16 @@ export const CvTimeLineDot = ({ type, sx = {} }: ICvTimeLineDotProps) => {
 
   /* Render */
 
-  return <TimelineDot sx={sx}>{Icon}</TimelineDot>;
+  return (
+    <TimelineDot
+      sx={{
+        m: 0,
+        ml: 2,
+        mr: 2,
+        ...sx,
+      }}
+    >
+      {Icon}
+    </TimelineDot>
+  );
 };

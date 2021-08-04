@@ -1,11 +1,5 @@
 import { Typography, useMediaQuery, useTheme } from "@material-ui/core";
-import {
-  Timeline,
-  TimelineConnector,
-  TimelineContent,
-  TimelineItem,
-  TimelineSeparator,
-} from "@material-ui/lab";
+import { Timeline, TimelineConnector, TimelineSeparator } from "@material-ui/lab";
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
@@ -13,12 +7,16 @@ import { teal } from "@material-ui/core/colors";
 import { ILocaleCode, selectCvData, currentLocaleCodeAtom } from "store";
 import { LoadingContainer, Markdown, Page } from "common";
 import { CvTimeLineDot } from "./cv-timeline-dot";
+import { CvSkeleton } from "./cv-skeleton";
+import { CvTimelineItem } from "./cv-timeline-item";
+import { CvTimelineContent } from "./cv-timeline-content";
+import { TFunction } from "i18next";
 
 interface IFormatDate {
   startedAt: string;
   endedAt: string | undefined;
   localeCode: ILocaleCode;
-  t: (i18nKey: string) => string;
+  t: TFunction;
 }
 
 export const formatDate = ({ startedAt, endedAt, localeCode, t }: IFormatDate) => {
@@ -42,9 +40,7 @@ export const Cv = () => {
 
   const theme = useTheme();
   const { t } = useTranslation("COMMON");
-  const isUnderSm = useMediaQuery(theme.breakpoints.down("sm"));
-
-  /* Effects */
+  const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
 
   /* Render */
 
@@ -52,42 +48,20 @@ export const Cv = () => {
     <LoadingContainer
       data={cvData}
       isLoading={isLoadingCvData}
-      loader={<span>LOADING GROS NUB</span>}
+      loader={<CvSkeleton isUnderMd={isUnderMd} />}
     >
       {({ data }) => {
         return (
-          <Page
-            sx={{
-              padding: { xs: 0, sm: 2, md: 5 },
-            }}
-          >
-            <Timeline position={isUnderSm ? "right" : "alternate"}>
+          <Page sx={{ padding: { xs: 0, sm: 2, md: 5 } }}>
+            <Timeline position={isUnderMd ? "right" : "alternate"}>
               {data.map((cvExperience) => {
                 return (
-                  <TimelineItem
-                    sx={{
-                      ":before": {
-                        display: { xs: "none", md: "block" },
-                      },
-                      "& :nth-of-type(even).MuiTimelineContent-root": {
-                        textAlign: "left",
-                      },
-                    }}
-                  >
+                  <CvTimelineItem>
                     <TimelineSeparator>
-                      <CvTimeLineDot
-                        type={cvExperience.type}
-                        sx={{ margin: 0, marginLeft: 2, marginRight: 2 }}
-                      />
+                      <CvTimeLineDot type={cvExperience.type} />
                       <TimelineConnector />
                     </TimelineSeparator>
-                    <TimelineContent
-                      sx={{
-                        backgroundColor: theme.palette.background.paper,
-                        boxShadow: theme.shadows[5],
-                        marginBottom: { xs: 3, md: 0 },
-                      }}
-                    >
+                    <CvTimelineContent>
                       <Typography sx={{ fontWeight: theme.typography.fontWeightBold }}>
                         {cvExperience.title}
                       </Typography>
@@ -113,8 +87,8 @@ export const Cv = () => {
                           t,
                         })}
                       </Typography>
-                    </TimelineContent>
-                  </TimelineItem>
+                    </CvTimelineContent>
+                  </CvTimelineItem>
                 );
               })}
             </Timeline>
