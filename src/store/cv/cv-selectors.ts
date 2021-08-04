@@ -1,15 +1,33 @@
-import { IRootState } from "../store";
+import { api, ISortOrder } from "common";
+import { selectorFamily } from "recoil";
+import { currentLocaleCodeAtom } from "../settings/settings-atoms";
+import { ICvData } from "./interfaces";
 
-/**
- * Return the cv page data
- */
-export const selectCvData = (state: IRootState) => {
-  return state.cv.data;
+type ISelectCvParams = {
+  sort: keyof ICvData;
+  order: ISortOrder;
 };
 
-/**
- * Return the cv page data loading state
- */
-export const selectIsLoadingCvData = (state: IRootState) => {
-  return state.cv.isLoading;
-};
+export const selectCvData = selectorFamily<Array<ICvData> | undefined, ISelectCvParams>({
+  key: "selectCvData",
+  get:
+    ({ sort, order }) =>
+    async ({ get }) => {
+      try {
+        const locale = get(currentLocaleCodeAtom);
+
+        const response = await api<Array<ICvData>>({
+          method: "get",
+          url: "/cvs",
+          params: {
+            _locale: locale,
+            _sort: `${sort}:${order}`,
+          },
+        });
+
+        return response.data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+});

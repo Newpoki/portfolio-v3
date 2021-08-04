@@ -1,7 +1,7 @@
 import * as ls from "local-storage";
+import { ILocaleCode } from "./interfaces";
 
 import { CURRENT_LOCALE_LS_KEY, DEFAULT_LOCALE_CODE } from "./settings-constants";
-import { ILocaleCode } from "./settings-slice";
 
 /**
  * Determine the app default language on the first load

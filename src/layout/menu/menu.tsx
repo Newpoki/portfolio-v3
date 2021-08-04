@@ -1,32 +1,32 @@
 import { AppBar, Toolbar, IconButton, Drawer, useMediaQuery } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
-import { MenuLinks } from "./menu-links";
-import { selectIsDrawerOpen, toggleDrawer } from "store";
-import { useAppDispatch, useAppSelector } from "common";
-import { useCallback } from "react";
 import { useTheme } from "@material-ui/core/styles";
+
+import { MenuLinks } from "./menu-links";
+import { useCallback } from "react";
 import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { drawerAtom } from "store";
 
 export const Menu = () => {
   /* Store */
 
-  const isDrawerOpen = useAppSelector(selectIsDrawerOpen);
+  const [isDrawerOpen, toggleDrawer] = useRecoilState(drawerAtom);
 
   /* Vars */
 
   const theme = useTheme();
   const { t } = useTranslation("MENU");
   const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
-  const dispatch = useAppDispatch();
 
   /* Callbacks */
 
   const handleDrawerToggle = useCallback(
     (isOpen: boolean) => () => {
-      dispatch(toggleDrawer({ isOpen }));
+      toggleDrawer(isOpen);
     },
-    [dispatch]
+    [toggleDrawer]
   );
 
   /* Effects */
@@ -36,9 +36,9 @@ export const Menu = () => {
    */
   useEffect(() => {
     if (!isUnderMd && isDrawerOpen) {
-      dispatch(toggleDrawer({ isOpen: false }));
+      toggleDrawer(false);
     }
-  }, [dispatch, isUnderMd, isDrawerOpen]);
+  }, [isUnderMd, isDrawerOpen, toggleDrawer]);
 
   /* Render */
 

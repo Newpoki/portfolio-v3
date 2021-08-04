@@ -1,36 +1,19 @@
-import { IRootState } from "../store";
+import { api } from "common";
+import { selector } from "recoil";
+import { ILocale } from "./interfaces";
 
-/**
- * Returns the application current theme
- */
-export const selectCurrentTheme = (state: IRootState) => {
-  return state.settings.theme;
-};
+export const selectAvailableLocales = selector<ILocale[] | undefined>({
+  key: "selectAvailableLocales",
+  get: async () => {
+    try {
+      const response = await api<ILocale[]>({
+        method: "get",
+        url: "/i18n/locales",
+      });
 
-/**
- * Returns the application available locales
- */
-export const selectAvailableLocales = (state: IRootState) => {
-  return state.settings.locales.data;
-};
-
-/**
- * Returns the available locales loading state
- */
-export const selectIsLoadingAvailableLocales = (state: IRootState) => {
-  return state.settings.locales.isLoading;
-};
-
-/**
- * Returns the current locale code
- */
-export const selectCurrentLocaleCode = (state: IRootState) => {
-  return state.settings.locales.currentCode;
-};
-
-/**
- * Returns the drawer open state
- */
-export const selectIsDrawerOpen = (state: IRootState) => {
-  return state.settings.drawer.isOpen;
-};
+      return response.data;
+    } catch (err) {
+      console.log(err);
+    }
+  },
+});
