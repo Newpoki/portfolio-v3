@@ -1,31 +1,20 @@
 import { Typography } from "@material-ui/core";
-import { useEffect } from "react";
 
-import { Page, useAppDispatch, useAppSelector } from "common";
-import { getHomeData, selectCurrentLocaleCode } from "store";
-import { selectHomeData, selectIsLoadingHomeData } from "store";
+import { Page } from "common";
+import { selectHomeData } from "store";
 import { HomeSkeleton } from "./home-skeleton";
+import { useRecoilValueLoadable } from "recoil";
 
 export const Home = () => {
   /* Store */
 
-  const homeData = useAppSelector(selectHomeData);
-  const isLoadingHomeData = useAppSelector(selectIsLoadingHomeData);
-  const currentLocaleCode = useAppSelector(selectCurrentLocaleCode);
-
-  /* Vars */
-
-  const dispatch = useAppDispatch();
-
-  /* Effects */
-
-  useEffect(() => {
-    dispatch(getHomeData({ locale: currentLocaleCode }));
-  }, [currentLocaleCode, dispatch]);
+  const homeLoadable = useRecoilValueLoadable(selectHomeData);
+  const isLoadingHome = homeLoadable.state === "loading";
+  const homeData = homeLoadable.valueMaybe();
 
   /* Render */
 
-  if (isLoadingHomeData || !homeData) {
+  if (isLoadingHome || !homeData) {
     return <HomeSkeleton />;
   }
 

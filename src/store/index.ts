@@ -1,22 +1,13 @@
-export { store } from "./store";
-export type { IAppDispatch, IRootState } from "./store";
-
 // SETTINGS
 export * from "./settings/settings-selectors";
 export * from "./settings/settings-constants";
-export {
-  changeCurrentTheme,
-  changeCurrentLocaleCode,
-  getAvailableLocales,
-  toggleDrawer,
-} from "./settings/settings-slice";
-export type { IThemeVariant, ILocale, ILocaleCode } from "./settings/settings-slice";
+export * from "./settings/interfaces";
+export * from "./settings/settings-utils";
+export * from "./settings/settings-atoms";
 
 // HOME
 export * from "./home/home-selectors";
-export { getHomeData } from "./home/home-slice";
 
 // CV
 export * from "./cv/cv-selectors";
-export { getCvData } from "./cv/cv-slice";
-export type { ICvData } from "./cv/cv-slice";
+export * from "./cv/interfaces";

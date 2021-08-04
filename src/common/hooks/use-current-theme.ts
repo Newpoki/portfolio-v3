@@ -1,11 +1,11 @@
 import { PaletteMode, useMediaQuery } from "@material-ui/core";
-import { selectCurrentTheme } from "store";
-import { useAppSelector } from "./use-app-selector";
+import { useRecoilValue } from "recoil";
+import { currentThemeAtom } from "store";
 
 export const useCurrentTheme = (): PaletteMode => {
   /* Store */
 
-  const currentTheme = useAppSelector(selectCurrentTheme);
+  const currentTheme = useRecoilValue(currentThemeAtom);
 
   /* Vars */
 

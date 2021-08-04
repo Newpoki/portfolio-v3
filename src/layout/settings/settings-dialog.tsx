@@ -18,31 +18,26 @@ import {
   Brightness4 as MoonIcon,
   SettingsBrightness as SystemIcon,
 } from "@material-ui/icons";
-import { MouseEvent, useCallback, useEffect, useMemo } from "react";
+import { MouseEvent, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import * as ls from "local-storage";
 
-import { useAppDispatch, useAppSelector } from "common";
 import {
-  changeCurrentLocaleCode,
-  changeCurrentTheme,
   CURRENT_LOCALE_LS_KEY,
   DEFAULT_LOCALE_CODE,
-  getAvailableLocales,
   ILocale,
   IThemeVariant,
   selectAvailableLocales,
-  selectCurrentLocaleCode,
-  selectCurrentTheme,
-  selectIsLoadingAvailableLocales,
   THEME_LS_KEY,
 } from "store";
 import { SettingsDialogSkeleton } from "./settings-dialog-skeleton";
+import { useRecoilState, useRecoilValueLoadable } from "recoil";
+import { currentLocaleCodeAtom, currentThemeAtom } from "store";
 
-export type ILocaleOption = ILocale & {
+interface ILocaleOption extends ILocale {
   label: ILocale["name"];
   flagKey: string;
-};
+}
 interface ISettingsDialogProps {
   isDialogOpen: boolean;
   toggleIsDialogOpen: (isDialogOpen: boolean) => void;
@@ -63,14 +58,15 @@ function countryToFlag(isoCode: string) {
 export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDialogProps) => {
   /* Store */
 
-  const isLoadingAvailableLocales = useAppSelector(selectIsLoadingAvailableLocales);
-  const currentTheme = useAppSelector(selectCurrentTheme);
-  const availableLocales = useAppSelector(selectAvailableLocales);
-  const currentLocaleCode = useAppSelector(selectCurrentLocaleCode);
+  const [currentTheme, changeCurrentTheme] = useRecoilState(currentThemeAtom);
+  const [currentLocaleCode, changeCurrentLocaleCode] = useRecoilState(currentLocaleCodeAtom);
+  const availableLocalesLoadable = useRecoilValueLoadable(selectAvailableLocales);
+  const isLoadingAvailableLocales = availableLocalesLoadable.state === "loading";
+  const availableLocales = availableLocalesLoadable.valueMaybe();
 
   /* Vars */
 
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const { t, i18n } = useTranslation();
   const theme = useTheme();
   const isUnderSm = useMediaQuery(theme.breakpoints.down("sm"));
@@ -106,11 +102,12 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
   const handleThemeButtonsClick = useCallback(
     (evt: MouseEvent<HTMLElement>, value: IThemeVariant | null) => {
       if (value) {
-        dispatch(changeCurrentTheme({ theme: value }));
+        // dispatch(changeCurrentTheme({ theme: value }));
+        changeCurrentTheme(value);
         ls.set(THEME_LS_KEY, value);
       }
     },
-    [dispatch]
+    [changeCurrentTheme]
   );
 
   /**
@@ -140,18 +137,12 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
     (evt, selectedOption: ILocaleOption | null) => {
       const newLocaleCode = selectedOption?.code ?? DEFAULT_LOCALE_CODE;
 
-      dispatch(changeCurrentLocaleCode({ localeCode: newLocaleCode }));
+      changeCurrentLocaleCode(newLocaleCode);
       ls.set(CURRENT_LOCALE_LS_KEY, newLocaleCode);
       i18n.changeLanguage(newLocaleCode);
     },
-    [dispatch, i18n]
+    [changeCurrentLocaleCode, i18n]
   );
-
-  /* Effects */
-
-  useEffect(() => {
-    dispatch(getAvailableLocales());
-  }, [dispatch]);
 
   /* Render */
 

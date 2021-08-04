@@ -6,19 +6,12 @@ import {
   TimelineItem,
   TimelineSeparator,
 } from "@material-ui/lab";
-import { useSelector } from "react-redux";
+import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import dayjs from "dayjs";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { teal } from "@material-ui/core/colors";
-import {
-  getCvData,
-  ILocaleCode,
-  selectCurrentLocaleCode,
-  selectCvData,
-  selectIsLoadingCvData,
-} from "store";
-import { Markdown, Page, useAppDispatch } from "common";
+import { ILocaleCode, selectCvData, currentLocaleCodeAtom } from "store";
+import { Markdown, Page } from "common";
 import { CvTimeLineDot } from "./cv-timeline-dot";
 
 interface IFormatDate {
@@ -40,26 +33,23 @@ export const formatDate = ({ startedAt, endedAt, localeCode, t }: IFormatDate) =
 export const Cv = () => {
   /* Store */
 
-  const cvData = useSelector(selectCvData);
-  const isLoadingCvData = useSelector(selectIsLoadingCvData);
-  const localeCode = useSelector(selectCurrentLocaleCode);
+  const cvDataLoadable = useRecoilValueLoadable(selectCvData({ sort: "startedAt", order: "DESC" }));
+  const isLoadingCvData = cvDataLoadable.state === "loading";
+  const cvData = cvDataLoadable.valueMaybe();
+  const currentLocaleCode = useRecoilValue(currentLocaleCodeAtom);
 
   /* Vars */
 
   const theme = useTheme();
   const { t } = useTranslation("COMMON");
-  const dispatch = useAppDispatch();
   const isUnderSm = useMediaQuery(theme.breakpoints.down("sm"));
 
   /* Effects */
 
-  useEffect(() => {
-    dispatch(getCvData({ locale: localeCode, sort: "startedAt", order: "DESC" }));
-  }, [dispatch, localeCode]);
-
   /* Render */
 
   if (isLoadingCvData || !cvData) {
+    // TODO: Finir traductions CV
     // TODO: Add a skeleton loader with a render prop
     // TODO: Fullscreen settings dialog on mobile
     return <span>LOADING GROS NUB</span>;
@@ -113,7 +103,12 @@ export const Cv = () => {
                 <Typography
                   sx={{ color: teal[500], fontWeight: theme.typography.fontWeightMedium }}
                 >
-                  {formatDate({ startedAt: data.startedAt, endedAt: data.endedAt, localeCode, t })}
+                  {formatDate({
+                    startedAt: data.startedAt,
+                    endedAt: data.endedAt,
+                    localeCode: currentLocaleCode,
+                    t,
+                  })}
                 </Typography>
               </TimelineContent>
             </TimelineItem>
