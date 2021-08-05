@@ -7,7 +7,11 @@ export * from "./settings/settings-atoms";
 
 // HOME
 export * from "./home/home-selectors";
+export * from "./home/home-atoms";
 
 // CV
 export * from "./cv/cv-selectors";
-export * from "./cv/interfaces";
+export * from "./cv/cv-atoms";
+
+// ERROR DIALOG
+export * from "./error-dialog/error-dialog-atoms";

@@ -8,7 +8,6 @@ import { Routes } from "routes";
 
 const useStyles = makeStyles<{}, { minHeight: number; userTheme: PaletteMode }>(() => ({
   root: {
-    // minHeight: ({ minHeight }) => minHeight,
     maxHeight: "100vh",
     backgroundImage: ({ userTheme }) =>
       `url('${process.env.PUBLIC_URL}/images/bg-${userTheme}.png')`,

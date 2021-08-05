@@ -13,7 +13,7 @@ export const selectAvailableLocales = selector<ILocale[] | undefined>({
 
       return response.data;
     } catch (err) {
-      console.log(err);
+      throw err;
     }
   },
 });
