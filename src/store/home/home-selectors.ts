@@ -1,6 +1,7 @@
 import { api } from "common";
 import { selector } from "recoil";
 import { currentLocaleCodeAtom } from "../settings/settings-atoms";
+import { homeDataToken } from "./home-atoms";
 
 interface IHomeData {
   name: string;
@@ -8,12 +9,13 @@ interface IHomeData {
   job_libraries: string;
 }
 
-export const selectHomeData = selector({
+export const selectHomeData = selector<IHomeData | undefined>({
   key: "selectHomeData",
   get: async ({ get }) => {
-    const locale = get(currentLocaleCodeAtom);
-
     try {
+      get(homeDataToken);
+
+      const locale = get(currentLocaleCodeAtom);
       const response = await api<IHomeData>({
         method: "get",
         url: "/home",
@@ -24,7 +26,8 @@ export const selectHomeData = selector({
 
       return response.data;
     } catch (err) {
-      console.log(err);
+      console.log({ err });
+      throw err;
     }
   },
 });

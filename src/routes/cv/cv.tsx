@@ -4,7 +4,7 @@ import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { teal } from "@material-ui/core/colors";
-import { ILocaleCode, selectCvData, currentLocaleCodeAtom } from "store";
+import { ILocaleCode, selectCvData, currentLocaleCodeAtom, cvDataToken } from "store";
 import { LoadingContainer, Markdown, Page } from "common";
 import { CvTimeLineDot } from "./cv-timeline-dot";
 import { CvSkeleton } from "./cv-skeleton";
@@ -32,7 +32,6 @@ export const Cv = () => {
   /* Store */
 
   const cvDataLoadable = useRecoilValueLoadable(selectCvData({ sort: "startedAt", order: "DESC" }));
-  const isLoadingCvData = cvDataLoadable.state === "loading";
   const cvData = cvDataLoadable.valueMaybe();
   const currentLocaleCode = useRecoilValue(currentLocaleCodeAtom);
 
@@ -47,7 +46,8 @@ export const Cv = () => {
   return (
     <LoadingContainer
       data={cvData}
-      isLoading={isLoadingCvData}
+      loadables={[cvDataLoadable]}
+      token={cvDataToken}
       loader={<CvSkeleton isUnderMd={isUnderMd} />}
     >
       {({ data }) => {
