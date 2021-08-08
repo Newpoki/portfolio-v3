@@ -16,9 +16,9 @@ export const CvSkeleton = ({ isUnderMd }: ICvSkeletonProps) => {
   return (
     <Page sx={{ padding: { xs: 0, sm: 2, md: 5 } }}>
       <Timeline position={isUnderMd ? "right" : "alternate"} color="primary">
-        {[...Array(6).keys()].map(() => {
+        {[...Array(6).keys()].map((value) => {
           return (
-            <CvTimelineItem>
+            <CvTimelineItem key={value}>
               <TimelineSeparator>
                 <CvTimeLineDot sx={{ width: 36, height: 36 }} type="loading" />
                 <TimelineConnector />

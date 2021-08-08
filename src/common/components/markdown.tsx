@@ -45,7 +45,7 @@ export const Markdown = memo(({ children }: IMarkdownProps) => {
             </a>
           );
         },
-        ul: ({ children, ...props }) => {
+        ul: ({ children, ordered, ...props }) => {
           return (
             <ul className={classes.list} {...props}>
               {children}

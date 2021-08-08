@@ -58,28 +58,33 @@ export const Cv = () => {
             <Timeline position={isUnderMd ? "right" : "alternate"}>
               {data.map((cvExperience) => {
                 return (
-                  <CvTimelineItem>
+                  <CvTimelineItem key={cvExperience.title}>
                     <TimelineSeparator>
                       <CvTimeLineDot type={cvExperience.type} />
                       <TimelineConnector sx={{ backgroundColor: theme.palette.background.paper }} />
                     </TimelineSeparator>
                     <CvTimelineContent>
-                      <Typography sx={{ fontWeight: theme.typography.fontWeightBold }}>
+                      <Typography
+                        component="span"
+                        sx={{ fontWeight: theme.typography.fontWeightBold }}
+                      >
                         {cvExperience.title}
                       </Typography>
 
                       <Typography
+                        component="span"
                         color="secondary"
                         sx={{ marginBottom: 2, fontWeight: theme.typography.fontWeightBold }}
                       >
                         {`${cvExperience.place.city}, ${cvExperience.place.country}`}
                       </Typography>
 
-                      <Typography sx={{ marginBottom: 3 }}>
+                      <Typography component="span" sx={{ marginBottom: 3 }}>
                         <Markdown>{cvExperience.content}</Markdown>
                       </Typography>
 
                       <Typography
+                        component="span"
                         sx={{ color: teal[500], fontWeight: theme.typography.fontWeightMedium }}
                       >
                         {formatDate({
