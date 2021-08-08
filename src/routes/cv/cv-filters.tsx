@@ -42,7 +42,7 @@ export const CvFilters = () => {
       maxWidth="600px"
       justifyContent="center"
       sx={{
-        height: { xs: 28, sm: 48 },
+        height: { xs: 38, sm: 48 },
         margin: `0 auto ${theme.spacing(3)}`,
       }}
     >

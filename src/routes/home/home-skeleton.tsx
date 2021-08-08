@@ -16,10 +16,15 @@ export const HomeSkeleton = () => {
         sx={{
           fontSize: { xs: 30, md: 60 },
           textAlign: { xs: "center", md: "left" },
-          width: 500,
         }}
       >
-        <Skeleton />
+        <Skeleton
+          sx={{
+            width: "50%",
+            maxWidth: 500,
+            display: "inline-flex",
+          }}
+        />
       </Typography>
 
       <Typography
@@ -27,10 +32,15 @@ export const HomeSkeleton = () => {
         sx={{
           fontSize: { xs: 20, md: 50 },
           textAlign: { xs: "center", md: "left" },
-          width: 800,
         }}
       >
-        <Skeleton />
+        <Skeleton
+          sx={{
+            width: "60%",
+            maxWidth: 800,
+            display: "inline-flex",
+          }}
+        />
       </Typography>
 
       <Typography
@@ -38,10 +48,15 @@ export const HomeSkeleton = () => {
         sx={{
           fontSize: { xs: 20, md: 50 },
           textAlign: { xs: "center", md: "left" },
-          width: 800,
         }}
       >
-        <Skeleton />
+        <Skeleton
+          sx={{
+            width: "60%",
+            maxWidth: 800,
+            display: "inline-flex",
+          }}
+        />
       </Typography>
     </Page>
   );

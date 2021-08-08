@@ -25,21 +25,33 @@ export const Home = () => {
           <Page sx={{ p: 5, justifyContent: { xs: "center" } }}>
             <Typography
               variant="h1"
-              sx={{ fontSize: { xs: 40, md: 60 }, textAlign: { xs: "center", md: "left" } }}
+              sx={{
+                fontSize: { xs: 40, sm: 40, md: 60 },
+                textAlign: { xs: "center", md: "left" },
+                color: "#aba6a6",
+              }}
             >
               {data.name}
             </Typography>
 
             <Typography
               variant="h2"
-              sx={{ fontSize: { xs: 25, md: 50 }, textAlign: { xs: "center", md: "left" } }}
+              sx={{
+                fontSize: { xs: 20, sm: 25, md: 50 },
+                textAlign: { xs: "center", md: "left" },
+                color: "#aba6a6",
+              }}
             >
               {data.job_title}
             </Typography>
 
             <Typography
               variant="h2"
-              sx={{ fontSize: { xs: 25, md: 50 }, textAlign: { xs: "center", md: "left" } }}
+              sx={{
+                fontSize: { xs: 20, sm: 25, md: 50 },
+                textAlign: { xs: "center", md: "left" },
+                color: "#aba6a6",
+              }}
             >
               {data.job_libraries}
             </Typography>
