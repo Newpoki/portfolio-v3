@@ -59,7 +59,7 @@ export const Cv = () => {
                   <CvTimelineItem>
                     <TimelineSeparator>
                       <CvTimeLineDot type={cvExperience.type} />
-                      <TimelineConnector />
+                      <TimelineConnector sx={{ backgroundColor: theme.palette.background.paper }} />
                     </TimelineSeparator>
                     <CvTimelineContent>
                       <Typography sx={{ fontWeight: theme.typography.fontWeightBold }}>
