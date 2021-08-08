@@ -1,13 +1,14 @@
 import { api, ISortOrder } from "common";
 import { selectorFamily } from "recoil";
 import { currentLocaleCodeAtom } from "../settings/settings-atoms";
+import { cvFilterAtom } from "./cv-atoms";
 
 interface ICvPlace {
   city: string;
   country: string;
 }
 
-type ICvExperienceType = "work" | "diploma" | "birth";
+export type ICvExperienceType = "work" | "diploma" | "birth";
 
 export interface ICvData {
   title: string;
@@ -30,6 +31,7 @@ export const selectCvData = selectorFamily<Array<ICvData> | undefined, ISelectCv
     async ({ get }) => {
       try {
         const locale = get(currentLocaleCodeAtom);
+        const filter = get(cvFilterAtom);
 
         const response = await api<Array<ICvData>>({
           method: "get",
@@ -37,6 +39,7 @@ export const selectCvData = selectorFamily<Array<ICvData> | undefined, ISelectCv
           params: {
             _locale: locale,
             _sort: `${sort}:${order}`,
+            type_eq: filter,
           },
         });
 

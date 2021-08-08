@@ -1,5 +1,6 @@
 import { atom } from "recoil";
-import { ISelectorToken } from "store/home/home-atoms";
+import { ISelectorToken } from "../interfaces";
+import { ICvExperienceType } from "./cv-selectors";
 
 export const cvDataToken = atom<ISelectorToken>({
   key: "cvDataToken",
@@ -7,4 +8,11 @@ export const cvDataToken = atom<ISelectorToken>({
     attempt: 0,
     value: 0,
   },
+});
+
+export type ICvFilter = Omit<ICvExperienceType, "birth"> | undefined;
+
+export const cvFilterAtom = atom<ICvFilter>({
+  key: "cvFilterAtom",
+  default: undefined,
 });

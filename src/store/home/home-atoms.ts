@@ -1,9 +1,5 @@
 import { atom } from "recoil";
-
-export interface ISelectorToken {
-  attempt: number;
-  value: number;
-}
+import { ISelectorToken } from "../interfaces";
 
 export const homeDataToken = atom<ISelectorToken>({
   key: "homeDataToken",
