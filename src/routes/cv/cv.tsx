@@ -11,6 +11,7 @@ import { CvSkeleton } from "./cv-skeleton";
 import { CvTimelineItem } from "./cv-timeline-item";
 import { CvTimelineContent } from "./cv-timeline-content";
 import { TFunction } from "i18next";
+import { CvFilters } from "./cv-filters";
 
 interface IFormatDate {
   startedAt: string;
@@ -44,15 +45,16 @@ export const Cv = () => {
   /* Render */
 
   return (
-    <LoadingContainer
-      data={cvData}
-      loadables={[cvDataLoadable]}
-      token={cvDataToken}
-      loader={<CvSkeleton isUnderMd={isUnderMd} />}
-    >
-      {({ data }) => {
-        return (
-          <Page sx={{ padding: { xs: 0, sm: 2, md: 5 } }}>
+    <Page sx={{ padding: { xs: 0, sm: 2, md: 5 } }}>
+      <CvFilters />
+      <LoadingContainer
+        data={cvData}
+        loadables={[cvDataLoadable]}
+        token={cvDataToken}
+        loader={<CvSkeleton isUnderMd={isUnderMd} />}
+      >
+        {({ data }) => {
+          return (
             <Timeline position={isUnderMd ? "right" : "alternate"}>
               {data.map((cvExperience) => {
                 return (
@@ -92,9 +94,9 @@ export const Cv = () => {
                 );
               })}
             </Timeline>
-          </Page>
-        );
-      }}
-    </LoadingContainer>
+          );
+        }}
+      </LoadingContainer>
+    </Page>
   );
 };

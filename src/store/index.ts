@@ -15,3 +15,6 @@ export * from "./cv/cv-atoms";
 
 // ERROR DIALOG
 export * from "./error-dialog/error-dialog-atoms";
+
+// COMMON
+export * from "./interfaces";
