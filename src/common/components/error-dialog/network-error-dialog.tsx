@@ -2,12 +2,6 @@ import { Button, DialogActions, DialogContent, DialogTitle } from "@material-ui/
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
 
-// TODO: Ajouter traductions manquantes pour les erreurs
-// TODO: Mettre couleur fond icone timeline la même que pour le fond des content
-// TODO: Ajouter système de filtres + dll CV pour la timeline
-// TODO: Gérer l'affichage pour iphone 5s
-// TODO: Voir skeleton home qui sontt rop grands en petit ecran
-
 export const NetworkErrorDialog = () => {
   /* Vars */
 

@@ -66,10 +66,10 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
 
   /* Vars */
 
-  // const dispatch = useAppDispatch();
   const { t, i18n } = useTranslation();
   const theme = useTheme();
   const isUnderSm = useMediaQuery(theme.breakpoints.down("sm"));
+  const isLessThan320Width = useMediaQuery("(max-width:320px)");
 
   /* Memos */
 
@@ -171,18 +171,42 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
           sx={{ marginBottom: 3 }}
         >
           <ToggleButton value="light" aria-label="left aligned">
-            <SunIcon sx={{ marginRight: 1 }} />
-            <span>{t("SETTINGS:DIALOG.THEME.LIGHT")}</span>
+            <SunIcon
+              sx={{
+                marginRight: 1,
+                fontSize: isLessThan320Width ? "1rem" : "1.5rem",
+                mr: isLessThan320Width ? 0.5 : 1,
+              }}
+            />
+            <Typography sx={{ fontSize: isLessThan320Width ? 12 : 16 }}>
+              {t("SETTINGS:DIALOG.THEME.LIGHT")}
+            </Typography>
           </ToggleButton>
 
           <ToggleButton value="system" aria-label="centered">
-            <SystemIcon sx={{ marginRight: 1 }} />
-            <span>{t("SETTINGS:DIALOG.THEME.SYSTEM")}</span>
+            <SystemIcon
+              sx={{
+                marginRight: 1,
+                fontSize: isLessThan320Width ? "1rem" : "1.5rem",
+                mr: isLessThan320Width ? 0.5 : 1,
+              }}
+            />
+            <Typography sx={{ fontSize: isLessThan320Width ? 12 : 16 }}>
+              {t("SETTINGS:DIALOG.THEME.SYSTEM")}
+            </Typography>
           </ToggleButton>
 
           <ToggleButton value="dark" aria-label="right aligned">
-            <MoonIcon sx={{ marginRight: 1 }} />
-            <span>{t("SETTINGS:DIALOG.THEME.DARK")}</span>
+            <MoonIcon
+              sx={{
+                marginRight: 1,
+                fontSize: isLessThan320Width ? "1rem" : "1.5rem",
+                mr: isLessThan320Width ? 0.5 : 1,
+              }}
+            />
+            <Typography sx={{ fontSize: isLessThan320Width ? 12 : 16 }}>
+              {t("SETTINGS:DIALOG.THEME.DARK")}
+            </Typography>
           </ToggleButton>
         </ToggleButtonGroup>
 

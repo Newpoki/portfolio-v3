@@ -19,6 +19,7 @@ export const Menu = () => {
   const theme = useTheme();
   const { t } = useTranslation("MENU");
   const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
+  const isLessThan320Width = useMediaQuery("(max-width:320px)");
 
   /* Callbacks */
 
@@ -67,7 +68,9 @@ export const Menu = () => {
           },
         }}
       >
-        <MenuIcon sx={{ height: 48, width: 48 }} />
+        <MenuIcon
+          sx={{ height: isLessThan320Width ? 36 : 48, width: isLessThan320Width ? 36 : 48 }}
+        />
       </IconButton>
 
       <Toolbar
