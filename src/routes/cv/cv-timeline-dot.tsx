@@ -6,7 +6,7 @@ import {
   CardMembership as CardMembershipIcon,
 } from "@material-ui/icons";
 import { SxProps, Theme } from "@material-ui/system";
-import { Typography } from "@material-ui/core";
+import { Typography, useTheme } from "@material-ui/core";
 
 interface ICvTimeLineDotProps {
   type: ICvData["type"] | "loading";
@@ -34,6 +34,7 @@ export const CvTimeLineDot = ({ type, sx = {} }: ICvTimeLineDotProps) => {
   /* Vars */
 
   const Icon = getIcon(type);
+  const theme = useTheme();
 
   /* Render */
 
@@ -43,6 +44,7 @@ export const CvTimeLineDot = ({ type, sx = {} }: ICvTimeLineDotProps) => {
         m: 0,
         ml: 2,
         mr: 2,
+        backgroundColor: theme.palette.background.paper,
         ...sx,
       }}
     >
