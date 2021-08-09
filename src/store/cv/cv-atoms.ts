@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 import { ISelectorToken } from "../interfaces";
-import { ICvExperienceType } from "./cv-selectors";
+import { ICvExperienceType } from "./interfaces";
 
 export const cvDataToken = atom<ISelectorToken>({
   key: "cvDataToken",

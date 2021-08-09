@@ -1,9 +1,8 @@
-import { PaletteMode, Theme, Typography, useMediaQuery, useTheme } from "@material-ui/core";
-
+import { PaletteMode, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import { LoadingContainer, Page, useCurrentTheme } from "common";
-import { homeDataToken, selectHomeData } from "store";
-import { HomeSkeleton } from "./home-skeleton";
 import { useRecoilValueLoadable } from "recoil";
+import { contactDataToken, selectContactData } from "store";
+import { Theme } from "@material-ui/core";
 
 /**
  * On small screen, with the moon on the dark theme background
@@ -26,11 +25,11 @@ const getTextColor = ({
   return theme.palette.primary.main;
 };
 
-export const Home = () => {
+export const Contact = () => {
   /* Store */
 
-  const homeLoadable = useRecoilValueLoadable(selectHomeData);
-  const homeData = homeLoadable.valueMaybe();
+  const contactLoadable = useRecoilValueLoadable(selectContactData);
+  const contactData = contactLoadable.valueMaybe();
 
   /* Vars */
 
@@ -46,45 +45,39 @@ export const Home = () => {
 
   return (
     <LoadingContainer
-      loadables={[homeLoadable]}
-      loader={<HomeSkeleton />}
-      data={homeData}
-      token={homeDataToken}
+      data={contactData}
+      loadables={[contactLoadable]}
+      loader={<div>loading contact</div>}
+      token={contactDataToken}
     >
       {({ data }) => {
         return (
-          <Page sx={{ p: 5, justifyContent: { xs: "center" } }}>
+          <Page sx={{ p: 4, justifyContent: "center" }}>
             <Typography
-              variant="h1"
+              component="a"
+              variant="h2"
+              href={`mailto:${data.email}`}
               sx={{
-                fontSize: { xs: 40, md: 60 },
-                textAlign: { xs: "center", md: "left" },
+                fontSize: { xs: 25, sm: 40, md: 50 },
+                textAlign: "center",
                 color,
+                mb: 1,
               }}
             >
-              {data.name}
+              {data.email}
             </Typography>
 
             <Typography
+              component="a"
               variant="h2"
+              href={`tel:${data.contactNumber}`}
               sx={{
-                fontSize: { xs: 20, sm: 25, md: 50 },
-                textAlign: { xs: "center", md: "left" },
+                fontSize: { xs: 25, sm: 40, md: 50 },
+                textAlign: "center",
                 color,
               }}
             >
-              {data.job_title}
-            </Typography>
-
-            <Typography
-              variant="h2"
-              sx={{
-                fontSize: { xs: 20, sm: 25, md: 50 },
-                textAlign: { xs: "center", md: "left" },
-                color,
-              }}
-            >
-              {data.job_libraries}
+              {data.contactNumber}
             </Typography>
           </Page>
         );

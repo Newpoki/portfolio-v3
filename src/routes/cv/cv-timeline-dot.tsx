@@ -1,8 +1,8 @@
 import { TimelineDot } from "@material-ui/lab";
 import { ICvData } from "store";
+import { useTheme, Theme } from "@material-ui/core";
+import { SxProps } from "@material-ui/system";
 
-import { SxProps, Theme } from "@material-ui/system";
-import { useTheme } from "@material-ui/core";
 import { CvTimelineIcon } from "./cv-timeline-icon";
 
 export interface ICvTimeLineDotProps {

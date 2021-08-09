@@ -1,10 +1,10 @@
-import { Skeleton, Typography } from "@material-ui/core";
+import { Skeleton, Typography, Theme } from "@material-ui/core";
 import {
   WorkOutline as WorkOutlineIcon,
   ChildFriendlyOutlined as ChildFriendlyOutlinedIcon,
   CardMembership as CardMembershipIcon,
 } from "@material-ui/icons";
-import { SxProps, Theme } from "@material-ui/system";
+import { SxProps } from "@material-ui/system";
 
 import { ICvTimeLineDotProps } from "./cv-timeline-dot";
 

@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 // https://fr.reactjs.org/docs/code-splitting.html#named-exports
 const Home = lazy(() => import("./home"));
 const Cv = lazy(() => import("./cv"));
+const Contact = lazy(() => import("./contact"));
 
 export const Routes = () => {
   /* Render */
@@ -15,6 +16,8 @@ export const Routes = () => {
         <Route path="/" exact component={Home} />
 
         <Route path="/cv" exact component={Cv} />
+
+        <Route path="/contact" exact component={Contact} />
       </Suspense>
     </Switch>
   );
