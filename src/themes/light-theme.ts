@@ -4,7 +4,7 @@ import { getBaseTheme } from "./base-theme";
 
 const palette: PaletteOptions = {
   mode: "light" as PaletteMode,
-  primary: { main: "rgba(0, 0, 0, 0.87)" },
+  primary: { main: "#424242" },
   secondary: { main: "rgba(0, 0, 0, 0.54)" },
   text: {
     primary: "rgba(0, 0, 0, 0.87)",
@@ -31,25 +31,5 @@ export const lightTheme = createTheme({
   ...partialLightTheme,
   components: {
     ...baseTheme.components,
-
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          // backgroundColor: "red",
-        },
-        containedPrimary: {
-          $root: {
-            // backgroundColor: "red",
-          },
-        },
-
-        // root: {
-        //   backgroundColor: baseTheme.palette.background.paper,
-        // },
-        // containedPrimary: {
-        //   backgroundColor: baseTheme.palette.background.paper,
-        // },
-      },
-    },
   },
 });
