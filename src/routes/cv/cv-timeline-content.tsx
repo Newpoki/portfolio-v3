@@ -1,6 +1,6 @@
-import { useTheme } from "@material-ui/core";
+import { useTheme, Theme } from "@material-ui/core";
 import { TimelineContent } from "@material-ui/lab";
-import { SxProps, Theme } from "@material-ui/system";
+import { SxProps } from "@material-ui/system";
 import { ReactNode } from "react-markdown";
 
 interface ICvTimelineContentProps {

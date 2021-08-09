@@ -2,12 +2,7 @@ import { api } from "common";
 import { selector } from "recoil";
 import { currentLocaleCodeAtom } from "../settings/settings-atoms";
 import { homeDataToken } from "./home-atoms";
-
-interface IHomeData {
-  name: string;
-  job_title: string;
-  job_libraries: string;
-}
+import { IHomeData } from "./interfaces";
 
 export const selectHomeData = selector<IHomeData | undefined>({
   key: "selectHomeData",
