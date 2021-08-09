@@ -40,10 +40,16 @@ export const CvFilters = () => {
       display="flex"
       width="100%"
       maxWidth="600px"
-      justifyContent="center"
       sx={{
         height: { xs: 38, sm: 48 },
-        margin: `0 auto ${theme.spacing(3)}`,
+        justifyContent: {
+          xs: "flex-start",
+          md: "center",
+        },
+        m: {
+          xs: theme.spacing(0, 1.25),
+          md: theme.spacing(0, "auto"),
+        },
       }}
     >
       <ToggleButtonGroup

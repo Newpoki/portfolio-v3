@@ -32,4 +32,5 @@ export const lightTheme = createTheme({
   components: {
     ...baseTheme.components,
   },
+  breakpoints: baseTheme.breakpoints,
 });

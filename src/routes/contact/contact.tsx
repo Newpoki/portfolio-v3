@@ -11,15 +11,15 @@ import { Theme } from "@material-ui/core";
  */
 const getTextColor = ({
   currentTheme,
-  isLessThan320Width,
+  isIPhone6OrSmaller,
   theme,
 }: {
   currentTheme: PaletteMode;
-  isLessThan320Width: boolean;
+  isIPhone6OrSmaller: boolean;
   theme: Theme;
 }) => {
   if (currentTheme === "dark") {
-    return isLessThan320Width ? "#aba6a6" : theme.palette.primary.main;
+    return isIPhone6OrSmaller ? "#aba6a6" : theme.palette.primary.main;
   }
 
   return theme.palette.primary.main;
@@ -35,11 +35,11 @@ export const Contact = () => {
 
   const theme = useTheme();
   const currentTheme = useCurrentTheme();
-  const isLessThan320Width = useMediaQuery("(max-width:320px)");
+  const isIPhone6OrSmaller = useMediaQuery("(max-width:320px)");
 
   /* Derived Vars */
 
-  const color = getTextColor({ currentTheme, isLessThan320Width, theme });
+  const color = getTextColor({ currentTheme, isIPhone6OrSmaller, theme });
 
   /* Render */
 

@@ -41,6 +41,7 @@ export const Cv = () => {
   const theme = useTheme();
   const { t } = useTranslation("COMMON");
   const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
+  const isIPhone6OrSmaller = useMediaQuery(theme.breakpoints.down("iphone6"));
 
   /* Render */
 
@@ -55,7 +56,7 @@ export const Cv = () => {
       >
         {({ data }) => {
           return (
-            <Timeline position={isUnderMd ? "right" : "alternate"}>
+            <Timeline position={isUnderMd ? "right" : "alternate"} sx={{ pl: { xs: 0, md: 0.75 } }}>
               {data.map((cvExperience) => {
                 return (
                   <CvTimelineItem key={cvExperience.title}>
@@ -85,7 +86,11 @@ export const Cv = () => {
 
                       <Typography
                         component="span"
-                        sx={{ color: teal[500], fontWeight: theme.typography.fontWeightMedium }}
+                        sx={{
+                          color: teal[500],
+                          fontWeight: theme.typography.fontWeightMedium,
+                          fontSize: isIPhone6OrSmaller ? 14 : 16,
+                        }}
                       >
                         {formatDate({
                           startedAt: cvExperience.startedAt,
