@@ -66,7 +66,7 @@ export const Cv = () => {
                     <CvTimelineContent>
                       <Typography
                         component="span"
-                        sx={{ fontWeight: theme.typography.fontWeightBold }}
+                        sx={{ fontWeight: theme.typography.fontWeightBold, display: "block" }}
                       >
                         {cvExperience.title}
                       </Typography>
