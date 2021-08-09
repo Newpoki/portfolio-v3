@@ -19,7 +19,7 @@ export const Menu = () => {
   const theme = useTheme();
   const { t } = useTranslation("MENU");
   const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
-  const isLessThan320Width = useMediaQuery("(max-width:320px)");
+  const isIPhone6OrSmaller = useMediaQuery(theme.breakpoints.down("iphone6"));
 
   /* Callbacks */
 
@@ -69,7 +69,7 @@ export const Menu = () => {
         }}
       >
         <MenuIcon
-          sx={{ height: isLessThan320Width ? 36 : 48, width: isLessThan320Width ? 36 : 48 }}
+          sx={{ height: isIPhone6OrSmaller ? 36 : 48, width: isIPhone6OrSmaller ? 36 : 48 }}
         />
       </IconButton>
 

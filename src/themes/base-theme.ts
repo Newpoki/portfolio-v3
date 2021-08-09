@@ -25,4 +25,15 @@ export const getBaseTheme = (theme: Theme) =>
         },
       },
     },
+    breakpoints: {
+      values: {
+        xs: 0,
+        iphone5S: 320,
+        iphone6: 375,
+        sm: 600,
+        md: 900,
+        lg: 1200,
+        xl: 1536,
+      },
+    },
   });

@@ -69,7 +69,7 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
   const { t, i18n } = useTranslation();
   const theme = useTheme();
   const isUnderSm = useMediaQuery(theme.breakpoints.down("sm"));
-  const isLessThan320Width = useMediaQuery("(max-width:320px)");
+  const isIPhone6OrSmaller = useMediaQuery(theme.breakpoints.down("iphone6"));
 
   /* Memos */
 
@@ -174,11 +174,11 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
             <SunIcon
               sx={{
                 marginRight: 1,
-                fontSize: isLessThan320Width ? "1rem" : "1.5rem",
-                mr: isLessThan320Width ? 0.5 : 1,
+                fontSize: isIPhone6OrSmaller ? "1rem" : "1.5rem",
+                mr: isIPhone6OrSmaller ? 0.5 : 1,
               }}
             />
-            <Typography sx={{ fontSize: isLessThan320Width ? 12 : 16 }}>
+            <Typography sx={{ fontSize: isIPhone6OrSmaller ? 12 : 16 }}>
               {t("SETTINGS:DIALOG.THEME.LIGHT")}
             </Typography>
           </ToggleButton>
@@ -187,11 +187,11 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
             <SystemIcon
               sx={{
                 marginRight: 1,
-                fontSize: isLessThan320Width ? "1rem" : "1.5rem",
-                mr: isLessThan320Width ? 0.5 : 1,
+                fontSize: isIPhone6OrSmaller ? "1rem" : "1.5rem",
+                mr: isIPhone6OrSmaller ? 0.5 : 1,
               }}
             />
-            <Typography sx={{ fontSize: isLessThan320Width ? 12 : 16 }}>
+            <Typography sx={{ fontSize: isIPhone6OrSmaller ? 12 : 16 }}>
               {t("SETTINGS:DIALOG.THEME.SYSTEM")}
             </Typography>
           </ToggleButton>
@@ -200,11 +200,11 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
             <MoonIcon
               sx={{
                 marginRight: 1,
-                fontSize: isLessThan320Width ? "1rem" : "1.5rem",
-                mr: isLessThan320Width ? 0.5 : 1,
+                fontSize: isIPhone6OrSmaller ? "1rem" : "1.5rem",
+                mr: isIPhone6OrSmaller ? 0.5 : 1,
               }}
             />
-            <Typography sx={{ fontSize: isLessThan320Width ? 12 : 16 }}>
+            <Typography sx={{ fontSize: isIPhone6OrSmaller ? 12 : 16 }}>
               {t("SETTINGS:DIALOG.THEME.DARK")}
             </Typography>
           </ToggleButton>

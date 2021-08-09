@@ -31,4 +31,5 @@ export const darkTheme = createTheme({
   components: {
     ...baseTheme.components,
   },
+  breakpoints: baseTheme.breakpoints,
 });
