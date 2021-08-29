@@ -1,31 +1,21 @@
-import { api } from "common";
-import { selectorFamily } from "recoil";
-import { currentLocaleCodeAtom } from "../settings/settings-atoms";
-import { cvFilterAtom } from "./cv-atoms";
-import { ICvData, ISelectCvParams } from "./interfaces";
+import { IRootState } from "store/interfaces";
 
-export const selectCvData = selectorFamily<Array<ICvData> | undefined, ISelectCvParams>({
-  key: "selectCvData",
-  get:
-    ({ sort, order }) =>
-    async ({ get }) => {
-      try {
-        const locale = get(currentLocaleCodeAtom);
-        const filter = get(cvFilterAtom);
+/** Returns the cv current filter */
+export const selectCvFilter = (state: IRootState) => {
+  return state.cv.filter;
+};
 
-        const response = await api<Array<ICvData>>({
-          method: "get",
-          url: "/cvs",
-          params: {
-            _locale: locale,
-            _sort: `${sort}:${order}`,
-            type_eq: filter,
-          },
-        });
+/** Returns the cv data */
+export const selectCvData = (state: IRootState) => {
+  return state.cv.data;
+};
 
-        return response.data;
-      } catch (err) {
-        throw err;
-      }
-    },
-});
+/** Returns the cv data loading state */
+export const selectIsLoadingCvData = (state: IRootState) => {
+  return state.cv.isLoading;
+};
+
+/** Returns the cv data error count */
+export const selectCvDataErrorCount = (state: IRootState) => {
+  return state.cv.errorCount;
+};

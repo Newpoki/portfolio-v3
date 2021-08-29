@@ -1,36 +1,37 @@
 import { Box, ToggleButton, ToggleButtonGroup, useMediaQuery, useTheme } from "@material-ui/core";
 import { MouseEvent, useCallback } from "react";
-import { useRecoilState } from "recoil";
-import { cvFilterAtom } from "store";
 import { CvTimelineIcon } from "./cv-timeline-icon";
 import {
   AssignmentInd as AssignmentIndIcon,
   DownloadForOffline as DownloadForOfflineIcon,
 } from "@material-ui/icons";
+import { useSelector, selectCvFilter, useDispatch, fetchCvData, selectLocaleCode } from "store";
 
 export const CvFilters = () => {
   /* Store */
 
-  const [selectedCvFilter, setSelectedCvFilter] = useRecoilState(cvFilterAtom);
+  const selectedCvFilter = useSelector(selectCvFilter);
+  const localeCode = useSelector(selectLocaleCode);
 
   /* Vars */
 
   const theme = useTheme();
+  const dispatch = useDispatch();
   const isUnderSm = useMediaQuery(theme.breakpoints.down("sm"));
 
   /* Callbacks */
 
   const handleFilterChange = useCallback(
-    (evt: MouseEvent<HTMLElement>, value: "all" | "work" | "diploma" | "pdf") => {
-      if (value === "all") {
-        setSelectedCvFilter(undefined);
-      } else if (value === "pdf") {
+    (evt: MouseEvent<HTMLElement>, filter: "all" | "work" | "diploma" | "pdf") => {
+      if (filter === "all") {
+        dispatch(fetchCvData({ localeCode, order: "DESC", cvTypeFilter: undefined }));
+      } else if (filter === "pdf") {
         window.open(`${process.env.PUBLIC_URL}/cv-jason-savelli.pdf`);
       } else {
-        setSelectedCvFilter(value);
+        dispatch(fetchCvData({ localeCode, order: "DESC", cvTypeFilter: filter }));
       }
     },
-    [setSelectedCvFilter]
+    [dispatch, localeCode]
   );
 
   /* Render */

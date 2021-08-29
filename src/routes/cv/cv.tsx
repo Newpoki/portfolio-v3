@@ -1,17 +1,27 @@
 import { Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import { Timeline, TimelineConnector, TimelineSeparator } from "@material-ui/lab";
-import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { teal } from "@material-ui/core/colors";
-import { ILocaleCode, selectCvData, currentLocaleCodeAtom, cvDataToken } from "store";
-import { LoadingContainer, Markdown, Page } from "common";
+import {
+  fetchCvData,
+  selectCvData,
+  selectCvDataErrorCount,
+  selectCvFilter,
+  selectIsLoadingCvData,
+  selectLocaleCode,
+  useDispatch,
+} from "store";
+import { ILocaleCode, LoadingContainer, Markdown, Page } from "common";
 import { CvTimeLineDot } from "./cv-timeline-dot";
 import { CvSkeleton } from "./cv-skeleton";
 import { CvTimelineItem } from "./cv-timeline-item";
 import { CvTimelineContent } from "./cv-timeline-content";
 import { TFunction } from "i18next";
 import { CvFilters } from "./cv-filters";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useCallback } from "react";
 
 interface IFormatDate {
   startedAt: string;
@@ -32,16 +42,34 @@ export const formatDate = ({ startedAt, endedAt, localeCode, t }: IFormatDate) =
 export const Cv = () => {
   /* Store */
 
-  const cvDataLoadable = useRecoilValueLoadable(selectCvData({ sort: "startedAt", order: "DESC" }));
-  const cvData = cvDataLoadable.valueMaybe();
-  const currentLocaleCode = useRecoilValue(currentLocaleCodeAtom);
+  const cvData = useSelector(selectCvData);
+  const selectedCvFilter = useSelector(selectCvFilter);
+  const cvDataErrorCount = useSelector(selectCvDataErrorCount);
+  const isLoadingCvData = useSelector(selectIsLoadingCvData);
+  const localeCode = useSelector(selectLocaleCode);
 
   /* Vars */
 
   const theme = useTheme();
+  const dispatch = useDispatch();
   const { t } = useTranslation("COMMON");
   const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
   const isIPhone6OrSmaller = useMediaQuery(theme.breakpoints.down("iphone6"));
+
+  /* Callbacks */
+
+  const handleRetry = useCallback(() => {
+    dispatch(fetchCvData({ localeCode, order: "DESC", cvTypeFilter: selectedCvFilter }));
+  }, [dispatch, localeCode, selectedCvFilter]);
+
+  /* Effects */
+
+  /** Fetch the cv data when coming on the page for the first time */
+  useEffect(() => {
+    if (!cvData) {
+      dispatch(fetchCvData({ localeCode, order: "DESC", cvTypeFilter: undefined }));
+    }
+  }, [cvData, dispatch, localeCode]);
 
   /* Render */
 
@@ -50,9 +78,10 @@ export const Cv = () => {
       <CvFilters />
       <LoadingContainer
         data={cvData}
-        loadables={[cvDataLoadable]}
-        token={cvDataToken}
         loader={<CvSkeleton isUnderMd={isUnderMd} />}
+        isLoading={isLoadingCvData}
+        errorCount={cvDataErrorCount}
+        onRetry={handleRetry}
       >
         {({ data }) => {
           return (
@@ -95,7 +124,7 @@ export const Cv = () => {
                         {formatDate({
                           startedAt: cvExperience.startedAt,
                           endedAt: cvExperience.endedAt,
-                          localeCode: currentLocaleCode,
+                          localeCode,
                           t,
                         })}
                       </Typography>

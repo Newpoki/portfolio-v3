@@ -1,26 +1,16 @@
-import { selector } from "recoil";
+import { IRootState } from "store/interfaces";
 
-import { api } from "common";
-import { IContactData } from "./interfaces";
-import { currentLocaleCodeAtom } from "store/settings/settings-atoms";
+/** Returns the contact data */
+export const selectContactData = (state: IRootState) => {
+  return state.contact.data;
+};
 
-export const selectContactData = selector<IContactData | undefined>({
-  key: "selectContactData",
-  get: async ({ get }) => {
-    const locale = get(currentLocaleCodeAtom);
+/** Returns the contact data loading state */
+export const selectIsLoadingContactData = (state: IRootState) => {
+  return state.contact.isLoading;
+};
 
-    try {
-      const response = await api<IContactData>({
-        method: "get",
-        url: "/contact",
-        params: {
-          _locale: locale,
-        },
-      });
-
-      return response.data;
-    } catch (err) {
-      throw err;
-    }
-  },
-});
+/** Returns the contact data error count */
+export const selectContactDataErrorCount = (state: IRootState) => {
+  return state.contact.errorCount;
+};

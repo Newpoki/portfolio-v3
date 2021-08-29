@@ -1,21 +1,22 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { CssBaseline } from "@material-ui/core";
-import { RecoilRoot } from "recoil";
 
 import "./i18n/i18n";
 import { App } from "./app";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "store";
 
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
-    <RecoilRoot>
+    <Provider store={store}>
       <BrowserRouter basename="/">
         <App />
       </BrowserRouter>
-    </RecoilRoot>
+    </Provider>
   </React.StrictMode>,
   document.getElementById("root")
 );
