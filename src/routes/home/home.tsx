@@ -1,9 +1,18 @@
 import { PaletteMode, Theme, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 
 import { LoadingContainer, Page, useCurrentTheme } from "common";
-import { homeDataToken, selectHomeData } from "store";
 import { HomeSkeleton } from "./home-skeleton";
-import { useRecoilValueLoadable } from "recoil";
+import { useSelector } from "react-redux";
+import {
+  fetchHomeData,
+  selectHomeData,
+  selectHomeDataErrorCount,
+  selectIsLoadingHomeData,
+  selectLocaleCode,
+  useDispatch,
+} from "store";
+import { useEffect } from "react";
+import { useCallback } from "react";
 
 /**
  * On small screen, with the moon on the dark theme background
@@ -29,12 +38,15 @@ const getTextColor = ({
 export const Home = () => {
   /* Store */
 
-  const homeLoadable = useRecoilValueLoadable(selectHomeData);
-  const homeData = homeLoadable.valueMaybe();
+  const homeData = useSelector(selectHomeData);
+  const localeCode = useSelector(selectLocaleCode);
+  const isLoadingHomeData = useSelector(selectIsLoadingHomeData);
+  const homeDataErrorCount = useSelector(selectHomeDataErrorCount);
 
   /* Vars */
 
   const theme = useTheme();
+  const dispatch = useDispatch();
   const currentTheme = useCurrentTheme();
   const isIPhone6OrSmaller = useMediaQuery(theme.breakpoints.down("iphone6"));
 
@@ -42,14 +54,29 @@ export const Home = () => {
 
   const color = getTextColor({ currentTheme, isIPhone6OrSmaller, theme });
 
+  /** Callbacks */
+
+  const handleRetry = useCallback(() => {
+    dispatch(fetchHomeData({ localeCode }));
+  }, [dispatch, localeCode]);
+
+  /* Effects */
+
+  useEffect(() => {
+    if (!homeData) {
+      dispatch(fetchHomeData({ localeCode }));
+    }
+  }, [dispatch, homeData, localeCode]);
+
   /* Render */
 
   return (
     <LoadingContainer
-      loadables={[homeLoadable]}
       loader={<HomeSkeleton />}
+      isLoading={isLoadingHomeData}
       data={homeData}
-      token={homeDataToken}
+      errorCount={homeDataErrorCount}
+      onRetry={handleRetry}
     >
       {({ data }) => {
         return (

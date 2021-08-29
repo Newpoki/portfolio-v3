@@ -1,8 +1,16 @@
 import { PaletteMode, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import { LoadingContainer, Page, useCurrentTheme } from "common";
-import { useRecoilValueLoadable } from "recoil";
-import { contactDataToken, selectContactData } from "store";
 import { Theme } from "@material-ui/core";
+import {
+  selectContactData,
+  selectContactDataErrorCount,
+  selectIsLoadingContactData,
+  selectLocaleCode,
+  useDispatch,
+  useSelector,
+} from "store";
+import { useCallback, useEffect } from "react";
+import { fetchContactData } from "store/contact/contact-slice";
 
 /**
  * On small screen, with the moon on the dark theme background
@@ -28,12 +36,15 @@ const getTextColor = ({
 export const Contact = () => {
   /* Store */
 
-  const contactLoadable = useRecoilValueLoadable(selectContactData);
-  const contactData = contactLoadable.valueMaybe();
+  const contactData = useSelector(selectContactData);
+  const contactDataErrorCount = useSelector(selectContactDataErrorCount);
+  const localeCode = useSelector(selectLocaleCode);
+  const isLoadingContactData = useSelector(selectIsLoadingContactData);
 
   /* Vars */
 
   const theme = useTheme();
+  const dispatch = useDispatch();
   const currentTheme = useCurrentTheme();
   const isIPhone6OrSmaller = useMediaQuery("(max-width:320px)");
 
@@ -41,14 +52,29 @@ export const Contact = () => {
 
   const color = getTextColor({ currentTheme, isIPhone6OrSmaller, theme });
 
+  /* Callbacks */
+
+  const handleRetry = useCallback(() => {
+    dispatch(fetchContactData({ localeCode }));
+  }, [dispatch, localeCode]);
+
+  /* Effects */
+
+  useEffect(() => {
+    if (!contactData) {
+      dispatch(fetchContactData({ localeCode }));
+    }
+  }, [contactData, dispatch, localeCode]);
+
   /* Render */
 
   return (
     <LoadingContainer
       data={contactData}
-      loadables={[contactLoadable]}
+      onRetry={handleRetry}
+      errorCount={contactDataErrorCount}
+      isLoading={isLoadingContactData}
       loader={<div>loading contact</div>}
-      token={contactDataToken}
     >
       {({ data }) => {
         return (

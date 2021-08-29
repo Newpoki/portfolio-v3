@@ -1,4 +1,4 @@
-import { ILocaleCode } from "./interfaces";
+import { ILocaleCode } from "common";
 
 export const THEME_LS_KEY = "THEME";
 

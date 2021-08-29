@@ -21,6 +21,16 @@ import {
 import { MouseEvent, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import * as ls from "local-storage";
+import { useSelector } from "react-redux";
+import {
+  changeLocaleCode,
+  changeThemeVariant,
+  fetchAvailableLocales,
+  selectAvailableLocalesErrorCount,
+  selectIsLoadingAvailableLocales,
+  selectThemeVariant,
+  useDispatch,
+} from "store";
 
 import {
   CURRENT_LOCALE_LS_KEY,
@@ -28,11 +38,12 @@ import {
   ILocale,
   IThemeVariant,
   selectAvailableLocales,
+  selectLocaleCode,
   THEME_LS_KEY,
 } from "store";
 import { SettingsDialogSkeleton } from "./settings-dialog-skeleton";
-import { useRecoilState, useRecoilValueLoadable } from "recoil";
-import { currentLocaleCodeAtom, currentThemeAtom } from "store";
+import { LoadingContainer } from "common";
+import { useEffect } from "react";
 
 interface ILocaleOption extends ILocale {
   label: ILocale["name"];
@@ -58,15 +69,16 @@ function countryToFlag(isoCode: string) {
 export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDialogProps) => {
   /* Store */
 
-  const [currentTheme, changeCurrentTheme] = useRecoilState(currentThemeAtom);
-  const [currentLocaleCode, changeCurrentLocaleCode] = useRecoilState(currentLocaleCodeAtom);
-  const availableLocalesLoadable = useRecoilValueLoadable(selectAvailableLocales);
-  const isLoadingAvailableLocales = availableLocalesLoadable.state === "loading";
-  const availableLocales = availableLocalesLoadable.valueMaybe();
+  const themeVariant = useSelector(selectThemeVariant);
+  const availableLocales = useSelector(selectAvailableLocales);
+  const isLoadingAvailableLocales = useSelector(selectIsLoadingAvailableLocales);
+  const availableLocalesErrorCount = useSelector(selectAvailableLocalesErrorCount);
+  const localeCode = useSelector(selectLocaleCode);
 
   /* Vars */
 
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
   const theme = useTheme();
   const isUnderSm = useMediaQuery(theme.breakpoints.down("sm"));
   const isIPhone6OrSmaller = useMediaQuery(theme.breakpoints.down("iphone6"));
@@ -87,8 +99,8 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
   }, [availableLocales]);
 
   const currentLocale = useMemo(
-    () => localesOptions.find((locale) => locale.code === currentLocaleCode),
-    [currentLocaleCode, localesOptions]
+    () => localesOptions.find((locale) => locale.code === localeCode),
+    [localeCode, localesOptions]
   );
 
   /* Callbacks */
@@ -102,12 +114,11 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
   const handleThemeButtonsClick = useCallback(
     (evt: MouseEvent<HTMLElement>, value: IThemeVariant | null) => {
       if (value) {
-        // dispatch(changeCurrentTheme({ theme: value }));
-        changeCurrentTheme(value);
+        dispatch(changeThemeVariant({ themeVariant: value }));
         ls.set(THEME_LS_KEY, value);
       }
     },
-    [changeCurrentTheme]
+    [dispatch]
   );
 
   /**
@@ -137,115 +148,140 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
     (evt, selectedOption: ILocaleOption | null) => {
       const newLocaleCode = selectedOption?.code ?? DEFAULT_LOCALE_CODE;
 
-      changeCurrentLocaleCode(newLocaleCode);
+      dispatch(changeLocaleCode({ localeCode: newLocaleCode }));
       ls.set(CURRENT_LOCALE_LS_KEY, newLocaleCode);
       i18n.changeLanguage(newLocaleCode);
     },
-    [changeCurrentLocaleCode, i18n]
+    [dispatch, i18n]
   );
+
+  const handleRetry = useCallback(() => {
+    dispatch(fetchAvailableLocales());
+  }, [dispatch]);
+
+  /* Effects */
+
+  /** Fetch the available locales when opening the dialog for the first time */
+  useEffect(() => {
+    if (!availableLocales) {
+      dispatch(fetchAvailableLocales());
+    }
+  }, [availableLocales, dispatch]);
 
   /* Render */
 
-  if (isLoadingAvailableLocales || !availableLocales || !currentLocale) {
-    return <SettingsDialogSkeleton isDisplayed={isDialogOpen} />;
-  }
-
   return (
-    <Dialog
-      open={isDialogOpen}
-      onClose={onDialogClose}
-      aria-labelledby={t("SETTINGS:DIALOG.ARIA.LABEL")}
-      aria-describedby={t("SETTINGS:DIALOG.ARIA.DESCRIBED_BY")}
-      color="primary"
-      fullScreen={isUnderSm}
+    <LoadingContainer
+      loader={<SettingsDialogSkeleton isDisplayed={isDialogOpen} />}
+      isLoading={isLoadingAvailableLocales}
+      data={availableLocales}
+      errorCount={availableLocalesErrorCount}
+      onRetry={handleRetry}
     >
-      <DialogTitle>{t("SETTINGS:DIALOG.TITLE")}</DialogTitle>
-      <DialogContent>
-        <Typography sx={{ marginBottom: 1 }}>{t("SETTINGS:DIALOG.THEME.TITLE")}</Typography>
+      {({ data }) => {
+        return (
+          <Dialog
+            open={isDialogOpen}
+            onClose={onDialogClose}
+            aria-labelledby={t("SETTINGS:DIALOG.ARIA.LABEL")}
+            aria-describedby={t("SETTINGS:DIALOG.ARIA.DESCRIBED_BY")}
+            color="primary"
+            fullScreen={isUnderSm}
+          >
+            <DialogTitle>{t("SETTINGS:DIALOG.TITLE")}</DialogTitle>
+            <DialogContent>
+              <Typography sx={{ marginBottom: 1 }}>{t("SETTINGS:DIALOG.THEME.TITLE")}</Typography>
 
-        <ToggleButtonGroup
-          exclusive
-          onChange={handleThemeButtonsClick}
-          aria-label={t("SETTINGS:DIALOG.THEME.BUTTON_GROUP.ARIA.LABEL")}
-          value={currentTheme}
-          sx={{ marginBottom: 3 }}
-        >
-          <ToggleButton value="light" aria-label="left aligned">
-            <SunIcon
-              sx={{
-                marginRight: 1,
-                fontSize: isIPhone6OrSmaller ? "1rem" : "1.5rem",
-                mr: isIPhone6OrSmaller ? 0.5 : 1,
-              }}
-            />
-            <Typography sx={{ fontSize: isIPhone6OrSmaller ? 12 : 16 }}>
-              {t("SETTINGS:DIALOG.THEME.LIGHT")}
-            </Typography>
-          </ToggleButton>
+              <ToggleButtonGroup
+                exclusive
+                onChange={handleThemeButtonsClick}
+                aria-label={t("SETTINGS:DIALOG.THEME.BUTTON_GROUP.ARIA.LABEL")}
+                value={themeVariant}
+                sx={{ marginBottom: 3 }}
+              >
+                <ToggleButton value="light" aria-label="left aligned">
+                  <SunIcon
+                    sx={{
+                      marginRight: 1,
+                      fontSize: isIPhone6OrSmaller ? "1rem" : "1.5rem",
+                      mr: isIPhone6OrSmaller ? 0.5 : 1,
+                    }}
+                  />
+                  <Typography sx={{ fontSize: isIPhone6OrSmaller ? 12 : 16 }}>
+                    {t("SETTINGS:DIALOG.THEME.LIGHT")}
+                  </Typography>
+                </ToggleButton>
 
-          <ToggleButton value="system" aria-label="centered">
-            <SystemIcon
-              sx={{
-                marginRight: 1,
-                fontSize: isIPhone6OrSmaller ? "1rem" : "1.5rem",
-                mr: isIPhone6OrSmaller ? 0.5 : 1,
-              }}
-            />
-            <Typography sx={{ fontSize: isIPhone6OrSmaller ? 12 : 16 }}>
-              {t("SETTINGS:DIALOG.THEME.SYSTEM")}
-            </Typography>
-          </ToggleButton>
+                <ToggleButton value="system" aria-label="centered">
+                  <SystemIcon
+                    sx={{
+                      marginRight: 1,
+                      fontSize: isIPhone6OrSmaller ? "1rem" : "1.5rem",
+                      mr: isIPhone6OrSmaller ? 0.5 : 1,
+                    }}
+                  />
+                  <Typography sx={{ fontSize: isIPhone6OrSmaller ? 12 : 16 }}>
+                    {t("SETTINGS:DIALOG.THEME.SYSTEM")}
+                  </Typography>
+                </ToggleButton>
 
-          <ToggleButton value="dark" aria-label="right aligned">
-            <MoonIcon
-              sx={{
-                marginRight: 1,
-                fontSize: isIPhone6OrSmaller ? "1rem" : "1.5rem",
-                mr: isIPhone6OrSmaller ? 0.5 : 1,
-              }}
-            />
-            <Typography sx={{ fontSize: isIPhone6OrSmaller ? 12 : 16 }}>
-              {t("SETTINGS:DIALOG.THEME.DARK")}
-            </Typography>
-          </ToggleButton>
-        </ToggleButtonGroup>
+                <ToggleButton value="dark" aria-label="right aligned">
+                  <MoonIcon
+                    sx={{
+                      marginRight: 1,
+                      fontSize: isIPhone6OrSmaller ? "1rem" : "1.5rem",
+                      mr: isIPhone6OrSmaller ? 0.5 : 1,
+                    }}
+                  />
+                  <Typography sx={{ fontSize: isIPhone6OrSmaller ? 12 : 16 }}>
+                    {t("SETTINGS:DIALOG.THEME.DARK")}
+                  </Typography>
+                </ToggleButton>
+              </ToggleButtonGroup>
 
-        <Typography sx={{ marginBottom: 1 }}>{t("SETTINGS:DIALOG.LANGUAGE.TITLE")}</Typography>
+              <Typography sx={{ marginBottom: 1 }}>
+                {t("SETTINGS:DIALOG.LANGUAGE.TITLE")}
+              </Typography>
 
-        <Autocomplete
-          disablePortal
-          options={localesOptions ?? []}
-          value={currentLocale}
-          onChange={handleLanguageChange}
-          fullWidth
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label={t("SETTINGS:DIALOG.LANGUAGE.FIELD.LABEL")}
-              InputProps={{
-                ...params.InputProps,
-                startAdornment: countryToFlag(currentLocale?.flagKey),
-              }}
-            />
-          )}
-          disableClearable
-          renderOption={(props, option) => {
-            return (
-              <Box component="li" {...props}>
-                <span aria-label={t("SETTINGS:DIALOG.LANGUAGE.FIELD.FLAG_ICON.ARIA.LABEL")}>
-                  {countryToFlag(option.flagKey)}
-                </span>
-                <Typography sx={{ marginLeft: 1 }}>{option.label}</Typography>
-              </Box>
-            );
-          }}
-        />
-      </DialogContent>
-      <DialogActions sx={{ justifyContent: "center" }}>
-        <Button onClick={onCloseButtonClick} variant="contained" color="primary">
-          Close
-        </Button>
-      </DialogActions>
-    </Dialog>
+              <Autocomplete
+                disablePortal
+                options={localesOptions ?? []}
+                value={currentLocale}
+                onChange={handleLanguageChange}
+                fullWidth
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label={t("SETTINGS:DIALOG.LANGUAGE.FIELD.LABEL")}
+                    InputProps={{
+                      ...params.InputProps,
+                      startAdornment: currentLocale?.flagKey
+                        ? countryToFlag(currentLocale.flagKey)
+                        : undefined,
+                    }}
+                  />
+                )}
+                disableClearable
+                renderOption={(props, option) => {
+                  return (
+                    <Box component="li" {...props}>
+                      <span aria-label={t("SETTINGS:DIALOG.LANGUAGE.FIELD.FLAG_ICON.ARIA.LABEL")}>
+                        {countryToFlag(option.flagKey)}
+                      </span>
+                      <Typography sx={{ marginLeft: 1 }}>{option.label}</Typography>
+                    </Box>
+                  );
+                }}
+              />
+            </DialogContent>
+            <DialogActions sx={{ justifyContent: "center" }}>
+              <Button onClick={onCloseButtonClick} variant="contained" color="primary">
+                Close
+              </Button>
+            </DialogActions>
+          </Dialog>
+        );
+      }}
+    </LoadingContainer>
   );
 };

@@ -1,33 +1,36 @@
 import { AppBar, Toolbar, IconButton, Drawer, useMediaQuery } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "@material-ui/core/styles";
+import { useTheme } from "@material-ui/core";
 
 import { MenuLinks } from "./menu-links";
 import { useCallback } from "react";
 import { useEffect } from "react";
-import { useRecoilState } from "recoil";
-import { drawerAtom } from "store";
+import { changeIsDrawerOpen, selectIsDrawerOpen, useDispatch } from "store";
+import { useSelector } from "react-redux";
+
+// TODO: Etendre config eslint pour empecher import useDispatch
 
 export const Menu = () => {
   /* Store */
 
-  const [isDrawerOpen, toggleDrawer] = useRecoilState(drawerAtom);
+  const isDrawerOpen = useSelector(selectIsDrawerOpen);
 
   /* Vars */
 
   const theme = useTheme();
   const { t } = useTranslation("MENU");
+  const dispatch = useDispatch();
   const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
   const isIPhone6OrSmaller = useMediaQuery(theme.breakpoints.down("iphone6"));
 
   /* Callbacks */
 
   const handleDrawerToggle = useCallback(
-    (isOpen: boolean) => () => {
-      toggleDrawer(isOpen);
+    (isDrawerOpen: boolean) => () => {
+      dispatch(changeIsDrawerOpen({ isDrawerOpen }));
     },
-    [toggleDrawer]
+    [dispatch]
   );
 
   /* Effects */
@@ -37,9 +40,9 @@ export const Menu = () => {
    */
   useEffect(() => {
     if (!isUnderMd && isDrawerOpen) {
-      toggleDrawer(false);
+      dispatch(changeIsDrawerOpen({ isDrawerOpen: false }));
     }
-  }, [isUnderMd, isDrawerOpen, toggleDrawer]);
+  }, [isUnderMd, isDrawerOpen, dispatch]);
 
   /* Render */
 

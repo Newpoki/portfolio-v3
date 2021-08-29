@@ -1,19 +1,20 @@
 import { PaletteMode, useMediaQuery } from "@material-ui/core";
-import { useRecoilValue } from "recoil";
-import { currentThemeAtom } from "store";
+import { useSelector } from "react-redux";
+
+import { selectThemeVariant } from "store";
 
 export const useCurrentTheme = (): PaletteMode => {
   /* Store */
 
-  const currentTheme = useRecoilValue(currentThemeAtom);
+  const themeVariant = useSelector(selectThemeVariant);
 
   /* Vars */
 
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
 
-  if (currentTheme === "system") {
+  if (themeVariant === "system") {
     return prefersDarkMode ? "dark" : "light";
   }
 
-  return currentTheme;
+  return themeVariant;
 };

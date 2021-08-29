@@ -1,33 +1,19 @@
 import { Button, DialogActions, DialogContent, DialogTitle } from "@material-ui/core";
 import { Replay as ResetIcon } from "@material-ui/icons";
-import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { RecoilState, useRecoilState } from "recoil";
-
-import { ISelectorToken } from "store";
 
 interface ITemporaryNetworkErrorDialogProps {
-  token: RecoilState<ISelectorToken>;
+  onRetry: () => void;
+  errorCount: number;
 }
 
-export const TemporaryNetworkErrorDialog = ({ token }: ITemporaryNetworkErrorDialogProps) => {
+export const TemporaryNetworkErrorDialog = ({
+  onRetry,
+  errorCount,
+}: ITemporaryNetworkErrorDialogProps) => {
   /* Store */
 
   const { t } = useTranslation("ERROR");
-  const [selectorToken, setSelectorToken] = useRecoilState(token);
-
-  /* Callbacks */
-
-  /**
-   * Update the given token. It will re-run the selector subscribed to this token and so, refresh the data
-   */
-  const handleRetry = useCallback(() => {
-    setSelectorToken({
-      ...selectorToken,
-      attempt: selectorToken.attempt + 1,
-      value: selectorToken.value + 1,
-    });
-  }, [selectorToken, setSelectorToken]);
 
   /* Render */
 
@@ -45,13 +31,10 @@ export const TemporaryNetworkErrorDialog = ({ token }: ITemporaryNetworkErrorDia
         />
       </DialogContent>
       <DialogActions sx={{ justifyContent: "center" }}>
-        <Button color="primary" variant="contained" onClick={handleRetry} startIcon={<ResetIcon />}>
-          {selectorToken.attempt === 0 &&
-            t("ERROR:DIALOG.TEMPORARY_NETWORK_ERROR.RETRY.ATTEMPT.NONE")}
-          {selectorToken.attempt === 1 &&
-            t("ERROR:DIALOG.TEMPORARY_NETWORK_ERROR.RETRY.ATTEMPT.FIRST")}
-          {selectorToken.attempt === 2 &&
-            t("ERROR:DIALOG.TEMPORARY_NETWORK_ERROR.RETRY.ATTEMPT.SECOND")}
+        <Button color="primary" variant="contained" onClick={onRetry} startIcon={<ResetIcon />}>
+          {errorCount === 1 && t("ERROR:DIALOG.TEMPORARY_NETWORK_ERROR.RETRY.ATTEMPT.NONE")}
+          {errorCount === 2 && t("ERROR:DIALOG.TEMPORARY_NETWORK_ERROR.RETRY.ATTEMPT.FIRST")}
+          {errorCount === 3 && t("ERROR:DIALOG.TEMPORARY_NETWORK_ERROR.RETRY.ATTEMPT.SECOND")}
         </Button>
       </DialogActions>
     </>
