@@ -2,6 +2,7 @@
   "extends": ["react-app"],
   "rules": {
     "jest/valid-title": 0,
+    "no-duplicate-imports": "error",
     "no-restricted-imports": [
       "error",
       {

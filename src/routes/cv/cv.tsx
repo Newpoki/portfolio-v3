@@ -20,8 +20,7 @@ import { CvTimelineItem } from "./cv-timeline-item";
 import { CvTimelineContent } from "./cv-timeline-content";
 import { TFunction } from "i18next";
 import { CvFilters } from "./cv-filters";
-import { useEffect } from "react";
-import { useCallback } from "react";
+import { useEffect, useCallback } from "react";
 
 interface IFormatDate {
   startedAt: string;
