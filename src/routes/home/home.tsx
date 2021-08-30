@@ -11,8 +11,7 @@ import {
   useDispatch,
   useSelector,
 } from "store";
-import { useEffect } from "react";
-import { useCallback } from "react";
+import { useEffect, useCallback } from "react";
 
 /**
  * On small screen, with the moon on the dark theme background

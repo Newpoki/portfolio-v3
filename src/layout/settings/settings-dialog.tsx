@@ -18,7 +18,7 @@ import {
   Brightness4 as MoonIcon,
   SettingsBrightness as SystemIcon,
 } from "@material-ui/icons";
-import { MouseEvent, useCallback, useMemo } from "react";
+import { MouseEvent, useCallback, useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import * as ls from "local-storage";
 import {
@@ -30,9 +30,6 @@ import {
   selectThemeVariant,
   useDispatch,
   useSelector,
-} from "store";
-
-import {
   CURRENT_LOCALE_LS_KEY,
   DEFAULT_LOCALE_CODE,
   ILocale,
@@ -41,9 +38,9 @@ import {
   selectLocaleCode,
   THEME_LS_KEY,
 } from "store";
+
 import { SettingsDialogSkeleton } from "./settings-dialog-skeleton";
 import { LoadingContainer } from "common";
-import { useEffect } from "react";
 
 interface ILocaleOption extends ILocale {
   label: ILocale["name"];

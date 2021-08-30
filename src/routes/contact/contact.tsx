@@ -1,6 +1,5 @@
-import { PaletteMode, Typography, useMediaQuery, useTheme } from "@material-ui/core";
+import { PaletteMode, Typography, useMediaQuery, useTheme, Theme } from "@material-ui/core";
 import { LoadingContainer, Page, useCurrentTheme } from "common";
-import { Theme } from "@material-ui/core";
 import {
   selectContactData,
   selectContactDataErrorCount,

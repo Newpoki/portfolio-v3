@@ -1,11 +1,9 @@
-import { AppBar, Toolbar, IconButton, Drawer, useMediaQuery } from "@material-ui/core";
+import { AppBar, Toolbar, IconButton, Drawer, useMediaQuery, useTheme } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
-import { useTheme } from "@material-ui/core";
 
 import { MenuLinks } from "./menu-links";
-import { useCallback } from "react";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { changeIsDrawerOpen, selectIsDrawerOpen, useDispatch, useSelector } from "store";
 
 export const Menu = () => {
