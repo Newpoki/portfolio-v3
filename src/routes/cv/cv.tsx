@@ -11,6 +11,7 @@ import {
   selectIsLoadingCvData,
   selectLocaleCode,
   useDispatch,
+  useSelector,
 } from "store";
 import { ILocaleCode, LoadingContainer, Markdown, Page } from "common";
 import { CvTimeLineDot } from "./cv-timeline-dot";
@@ -19,7 +20,6 @@ import { CvTimelineItem } from "./cv-timeline-item";
 import { CvTimelineContent } from "./cv-timeline-content";
 import { TFunction } from "i18next";
 import { CvFilters } from "./cv-filters";
-import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useCallback } from "react";
 

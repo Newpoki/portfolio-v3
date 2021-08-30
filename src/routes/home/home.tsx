@@ -2,7 +2,6 @@ import { PaletteMode, Theme, Typography, useMediaQuery, useTheme } from "@materi
 
 import { LoadingContainer, Page, useCurrentTheme } from "common";
 import { HomeSkeleton } from "./home-skeleton";
-import { useSelector } from "react-redux";
 import {
   fetchHomeData,
   selectHomeData,
@@ -10,6 +9,7 @@ import {
   selectIsLoadingHomeData,
   selectLocaleCode,
   useDispatch,
+  useSelector,
 } from "store";
 import { useEffect } from "react";
 import { useCallback } from "react";

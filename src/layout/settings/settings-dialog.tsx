@@ -21,7 +21,6 @@ import {
 import { MouseEvent, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import * as ls from "local-storage";
-import { useSelector } from "react-redux";
 import {
   changeLocaleCode,
   changeThemeVariant,
@@ -30,6 +29,7 @@ import {
   selectIsLoadingAvailableLocales,
   selectThemeVariant,
   useDispatch,
+  useSelector,
 } from "store";
 
 import {
