@@ -1,7 +1,9 @@
+/* eslint-disable no-restricted-imports */
 import { configureStore } from "@reduxjs/toolkit";
 
 import {
   TypedUseSelectorHook,
+  // This is the ONLY place where the useDispatch and useSelector imports from react-redux are allowed.
   useDispatch as useReactReduxDispatch,
   useSelector as useReactReduxSelector,
 } from "react-redux";
@@ -20,8 +22,6 @@ export const store = configureStore({
     contact,
   },
 });
-
-// TODO: Empecher l'utilisation de useDispatch et useSelector de redux sauf dans ce fichier
 
 /** A redux useDispatch override to handle the async thunks contaiend in redux toolkit */
 export const useDispatch = () => useReactReduxDispatch<IAppDispatch>();

@@ -1,7 +1,6 @@
 import { PaletteMode, useMediaQuery } from "@material-ui/core";
-import { useSelector } from "react-redux";
 
-import { selectThemeVariant } from "store";
+import { selectThemeVariant, useSelector } from "store";
 
 export const useCurrentTheme = (): PaletteMode => {
   /* Store */

@@ -6,10 +6,7 @@ import { useTheme } from "@material-ui/core";
 import { MenuLinks } from "./menu-links";
 import { useCallback } from "react";
 import { useEffect } from "react";
-import { changeIsDrawerOpen, selectIsDrawerOpen, useDispatch } from "store";
-import { useSelector } from "react-redux";
-
-// TODO: Etendre config eslint pour empecher import useDispatch
+import { changeIsDrawerOpen, selectIsDrawerOpen, useDispatch, useSelector } from "store";
 
 export const Menu = () => {
   /* Store */

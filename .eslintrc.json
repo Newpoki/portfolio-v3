@@ -1,7 +1,19 @@
 {
   "extends": ["react-app"],
   "rules": {
-    "jest/valid-title": 0
+    "jest/valid-title": 0,
+    "no-restricted-imports": [
+      "error",
+      {
+        "paths": [
+          {
+            "name": "react-redux",
+            "importNames": ["useDispatch", "useSelector"],
+            "message": "Go with useDispatch and useSelector that are safely typed instead"
+          }
+        ]
+      }
+    ]
   },
   "overrides": [
     {
