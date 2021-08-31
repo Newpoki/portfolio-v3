@@ -11,8 +11,21 @@
             "name": "react-redux",
             "importNames": ["useDispatch", "useSelector"],
             "message": "Go with useDispatch and useSelector that are safely typed instead"
-          }
-        ]
+          },
+          { "name": "common", "message": "Use ~/common instead to keep the import order" },
+          { "name": "routes", "message": "Use ~/routes instead to keep the import order" },
+          { "name": "store", "message": "Use ~/store instead to keep the import order" },
+          { "name": "themes", "message": "Use ~/themes instead to keep the import order" }
+        ],
+        "patterns": ["common/*", "routes/*", "store/*", "themes/*"]
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal"],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "newlines-between": "always"
       }
     ]
   },

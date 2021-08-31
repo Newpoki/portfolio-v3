@@ -1,10 +1,10 @@
 import { AppBar, Toolbar, IconButton, Drawer, useMediaQuery, useTheme } from "@material-ui/core";
 import { Menu as MenuIcon } from "@material-ui/icons";
 import { useTranslation } from "react-i18next";
-
-import { MenuLinks } from "./menu-links";
 import { useCallback, useEffect } from "react";
-import { changeIsDrawerOpen, selectIsDrawerOpen, useDispatch, useSelector } from "store";
+
+import { changeIsDrawerOpen, selectIsDrawerOpen, useDispatch, useSelector } from "~store";
+import { MenuLinks } from "./menu-links";
 
 export const Menu = () => {
   /* Store */
@@ -66,9 +66,7 @@ export const Menu = () => {
           },
         }}
       >
-        <MenuIcon
-          sx={{ height: isIPhone6OrSmaller ? 36 : 48, width: isIPhone6OrSmaller ? 36 : 48 }}
-        />
+        <MenuIcon sx={{ height: isIPhone6OrSmaller ? 36 : 48, width: isIPhone6OrSmaller ? 36 : 48 }} />
       </IconButton>
 
       <Toolbar

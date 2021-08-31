@@ -13,14 +13,12 @@ import {
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
-import {
-  Brightness7 as SunIcon,
-  Brightness4 as MoonIcon,
-  SettingsBrightness as SystemIcon,
-} from "@material-ui/icons";
+import { Brightness7 as SunIcon, Brightness4 as MoonIcon, SettingsBrightness as SystemIcon } from "@material-ui/icons";
 import { MouseEvent, useCallback, useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import * as ls from "local-storage";
+
+import { LoadingContainer } from "~common";
 import {
   changeLocaleCode,
   changeThemeVariant,
@@ -37,10 +35,8 @@ import {
   selectAvailableLocales,
   selectLocaleCode,
   THEME_LS_KEY,
-} from "store";
-
+} from "~store";
 import { SettingsDialogSkeleton } from "./settings-dialog-skeleton";
-import { LoadingContainer } from "common";
 
 interface ILocaleOption extends ILocale {
   label: ILocale["name"];
@@ -57,9 +53,7 @@ interface ISettingsDialogProps {
  */
 function countryToFlag(isoCode: string) {
   return typeof String.fromCodePoint !== "undefined"
-    ? isoCode
-        .toUpperCase()
-        .replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
+    ? isoCode.toUpperCase().replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + 127397))
     : isoCode;
 }
 
@@ -236,9 +230,7 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
                 </ToggleButton>
               </ToggleButtonGroup>
 
-              <Typography sx={{ marginBottom: 1 }}>
-                {t("SETTINGS:DIALOG.LANGUAGE.TITLE")}
-              </Typography>
+              <Typography sx={{ marginBottom: 1 }}>{t("SETTINGS:DIALOG.LANGUAGE.TITLE")}</Typography>
 
               <Autocomplete
                 disablePortal
@@ -252,9 +244,7 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
                     label={t("SETTINGS:DIALOG.LANGUAGE.FIELD.LABEL")}
                     InputProps={{
                       ...params.InputProps,
-                      startAdornment: currentLocale?.flagKey
-                        ? countryToFlag(currentLocale.flagKey)
-                        : undefined,
+                      startAdornment: currentLocale?.flagKey ? countryToFlag(currentLocale.flagKey) : undefined,
                     }}
                   />
                 )}

@@ -1,5 +1,5 @@
-import { IContactState } from "store/contact/interfaces";
-import { mockedFetchContactDataResponse } from "store/contact/tests/mocks/contact";
+import { IContactState } from "../../contact/interfaces";
+import { mockedFetchContactDataResponse } from "../../contact/tests/mocks/contact";
 
 export const mockedContactState: IContactState = {
   data: mockedFetchContactDataResponse,

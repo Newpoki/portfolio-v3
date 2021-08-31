@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { api } from "common";
+import { api } from "~common";
 import { IContactData, IContactState, IFetchContactDataPayload } from "./interfaces";
 
 const initialState: IContactState = {
@@ -10,21 +10,21 @@ const initialState: IContactState = {
 };
 
 // TODO: Ajouter tests sur les home thunks comme pour settings
-export const fetchContactData = createAsyncThunk<
-  IContactData | undefined,
-  IFetchContactDataPayload
->("contact/fetchData", async ({ localeCode }) => {
-  const response = await api<IContactData>({
-    method: "get",
-    url: "/contact",
-    params: {
-      _locale: localeCode,
-    },
-  });
+export const fetchContactData = createAsyncThunk<IContactData | undefined, IFetchContactDataPayload>(
+  "contact/fetchData",
+  async ({ localeCode }) => {
+    const response = await api<IContactData>({
+      method: "get",
+      url: "/contact",
+      params: {
+        _locale: localeCode,
+      },
+    });
 
-  // TODO: Ajouter meilleur gestion erreur
-  return response.data;
-});
+    // TODO: Ajouter meilleur gestion erreur
+    return response.data;
+  }
+);
 
 const contactSlice = createSlice({
   name: "contact",

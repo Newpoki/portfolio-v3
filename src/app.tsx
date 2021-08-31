@@ -1,16 +1,15 @@
 import { PaletteMode, ThemeProvider } from "@material-ui/core";
 import { makeStyles } from "@material-ui/styles";
 
-import { useCurrentTheme, useMinHeight } from "common";
-import { Menu, Settings } from "layout";
-import { darkTheme, lightTheme } from "themes";
-import { Routes } from "routes";
+import { Menu, Settings } from "~layout";
+import { darkTheme, lightTheme } from "~themes";
+import { useCurrentTheme, useMinHeight } from "~common";
+import { Routes } from "~routes";
 
 const useStyles = makeStyles<{}, { minHeight: number; userTheme: PaletteMode }>(() => ({
   root: {
     maxHeight: "100vh",
-    backgroundImage: ({ userTheme }) =>
-      `url('${process.env.PUBLIC_URL}/images/bg-${userTheme}.png')`,
+    backgroundImage: ({ userTheme }) => `url('${process.env.PUBLIC_URL}/images/bg-${userTheme}.png')`,
     transition: "0.3s",
     display: "flex",
     flexDirection: "column",

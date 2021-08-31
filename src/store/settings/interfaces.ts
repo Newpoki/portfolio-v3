@@ -1,5 +1,6 @@
 import { PaletteMode } from "@material-ui/core";
-import { ILocaleCode } from "common";
+
+import { ILocaleCode } from "~common";
 
 /**
  * The available themes based on material-ui palette

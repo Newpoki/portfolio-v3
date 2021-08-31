@@ -20,3 +20,4 @@ export * from "./store";
 
 // CONTACT
 export * from "./contact/contact-selectors";
+export * from "./contact/contact-slice";

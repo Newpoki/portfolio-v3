@@ -3,6 +3,10 @@ import { Timeline, TimelineConnector, TimelineSeparator } from "@material-ui/lab
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { teal } from "@material-ui/core/colors";
+import { TFunction } from "i18next";
+import { useEffect, useCallback } from "react";
+
+import { ILocaleCode, LoadingContainer, Markdown, Page } from "~common";
 import {
   fetchCvData,
   selectCvData,
@@ -12,15 +16,12 @@ import {
   selectLocaleCode,
   useDispatch,
   useSelector,
-} from "store";
-import { ILocaleCode, LoadingContainer, Markdown, Page } from "common";
+} from "~store";
 import { CvTimeLineDot } from "./cv-timeline-dot";
 import { CvSkeleton } from "./cv-skeleton";
 import { CvTimelineItem } from "./cv-timeline-item";
 import { CvTimelineContent } from "./cv-timeline-content";
-import { TFunction } from "i18next";
 import { CvFilters } from "./cv-filters";
-import { useEffect, useCallback } from "react";
 
 interface IFormatDate {
   startedAt: string;
@@ -33,7 +34,7 @@ export const formatDate = ({ startedAt, endedAt, localeCode, t }: IFormatDate) =
   const format = localeCode === "fr-FR" ? "DD/MM/YYYY" : "MM/DD/YYYY";
 
   const formatedStart = dayjs(startedAt).format(format);
-  const formatedEnd = endedAt ? dayjs(endedAt).format(format) : t("COMMON:TODAY");
+  const formatedEnd = endedAt ? dayjs(endedAt).format(format) : t("~common:TODAY");
 
   return `${formatedStart} → ${formatedEnd}`;
 };
@@ -51,7 +52,7 @@ export const Cv = () => {
 
   const theme = useTheme();
   const dispatch = useDispatch();
-  const { t } = useTranslation("COMMON");
+  const { t } = useTranslation("~common");
   const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
   const isIPhone6OrSmaller = useMediaQuery(theme.breakpoints.down("iphone6"));
 

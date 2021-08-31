@@ -1,5 +1,7 @@
 import { PaletteMode, Typography, useMediaQuery, useTheme, Theme } from "@material-ui/core";
-import { LoadingContainer, Page, useCurrentTheme } from "common";
+import { useCallback, useEffect } from "react";
+
+import { LoadingContainer, Page, useCurrentTheme } from "~common";
 import {
   selectContactData,
   selectContactDataErrorCount,
@@ -7,9 +9,8 @@ import {
   selectLocaleCode,
   useDispatch,
   useSelector,
-} from "store";
-import { useCallback, useEffect } from "react";
-import { fetchContactData } from "store/contact/contact-slice";
+  fetchContactData,
+} from "~store";
 
 /**
  * On small screen, with the moon on the dark theme background

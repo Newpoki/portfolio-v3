@@ -1,4 +1,4 @@
-import { mockedFetchAvailableLocalesResponse } from "store/settings/tests/mocks/settings";
+import { mockedFetchAvailableLocalesResponse } from "../../settings/tests/mocks/settings";
 import { ISettingsState } from "../../settings/interfaces";
 
 export const mockedSettingsState: ISettingsState = {

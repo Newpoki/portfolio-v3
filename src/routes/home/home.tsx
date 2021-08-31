@@ -1,7 +1,7 @@
 import { PaletteMode, Theme, Typography, useMediaQuery, useTheme } from "@material-ui/core";
+import { useEffect, useCallback } from "react";
 
-import { LoadingContainer, Page, useCurrentTheme } from "common";
-import { HomeSkeleton } from "./home-skeleton";
+import { LoadingContainer, Page, useCurrentTheme } from "~common";
 import {
   fetchHomeData,
   selectHomeData,
@@ -10,8 +10,8 @@ import {
   selectLocaleCode,
   useDispatch,
   useSelector,
-} from "store";
-import { useEffect, useCallback } from "react";
+} from "~store";
+import { HomeSkeleton } from "./home-skeleton";
 
 /**
  * On small screen, with the moon on the dark theme background

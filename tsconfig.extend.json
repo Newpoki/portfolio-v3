@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "~routes": ["./routes"],
+      "~store": ["./store"],
+      "~common": ["./common"],
+      "~themes": ["./themes"],
+      "~layout": ["./layout"]
+    }
+  }
+}

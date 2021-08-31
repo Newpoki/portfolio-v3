@@ -1,9 +1,5 @@
-import { mockedState } from "store/tests/mocks/store";
-import {
-  selectHomeData,
-  selectHomeDataErrorCount,
-  selectIsLoadingHomeData,
-} from "../home-selectors";
+import { mockedState } from "../../tests/mocks/store";
+import { selectHomeData, selectHomeDataErrorCount, selectIsLoadingHomeData } from "../home-selectors";
 
 describe("home selectors", () => {
   const state = mockedState;

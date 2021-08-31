@@ -1,6 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
-import { mockedState } from "store/tests/mocks/store";
 
+import { mockedState } from "../../tests/mocks/store";
 import {
   IChangeIsDrawerOpenPayload,
   IChangeLocaleCodePayload,
@@ -102,10 +102,7 @@ describe("settings reducer", () => {
   });
 
   describe(fetchAvailableLocales.fulfilled.toString(), () => {
-    const action = fetchAvailableLocales.fulfilled(
-      mockedFetchAvailableLocalesResponse,
-      "settings/fetchAvailableData"
-    );
+    const action = fetchAvailableLocales.fulfilled(mockedFetchAvailableLocalesResponse, "settings/fetchAvailableData");
 
     const state = mockedState.settings;
 
