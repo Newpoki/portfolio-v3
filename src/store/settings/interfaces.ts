@@ -1,6 +1,6 @@
 import { PaletteMode } from "@material-ui/core";
 
-import { ILocaleCode } from "~common";
+import { IGenericApiResponse, ILocaleCode } from "~common";
 
 /**
  * The available themes based on material-ui palette
@@ -10,12 +10,15 @@ export type IThemeVariant = PaletteMode | "system";
 /**
  * A locale data defined
  */
-export interface ILocale {
+export interface ILocale extends IGenericApiResponse {
   /** The locale code is used by the i18n hooks and strapi i18n system */
   code: ILocaleCode;
 
   /** The name is only here for the display */
   name: string;
+
+  /** Determine if this is the strapi backend API default locale */
+  isDefault: boolean;
 }
 
 /** The payload from the action that changes the locale code */

@@ -1,7 +1,7 @@
-import { ILocaleCode } from "~common";
+import { IGenericLocalizedApiResponse, ILocaleCode } from "~common";
 
 /** The displayed data on the home page */
-export interface IHomeData {
+export interface IHomeData extends IGenericLocalizedApiResponse {
   name: string;
   job_title: string;
   job_libraries: string;

@@ -70,7 +70,6 @@
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.6",
     "@types/react-router-dom": "^5.1.8",
-    "craco-alias": "^3.0.1",
-    "eslint-plugin-import": "^2.24.2"
+    "craco-alias": "^3.0.1"
   }
 }

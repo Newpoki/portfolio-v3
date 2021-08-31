@@ -1,7 +1,5 @@
 TODO:
 
-Etendre toutes les reponses des interfaces génériques de strapi
-
 - Ajouter onLocalechange callback à la fenêtre des paramètres pour re-recupérer les données dans la nouvelle locale
   Finir TUs + description thunks
   Voir pourquoi changeIsDrawerOpen appelé a chaque changement de page

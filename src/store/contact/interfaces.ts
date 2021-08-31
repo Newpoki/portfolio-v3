@@ -1,7 +1,7 @@
-import { ILocaleCode } from "~common";
+import { ILocaleCode, IGenericLocalizedApiResponse } from "~common";
 
 /** The contact data */
-export interface IContactData {
+export interface IContactData extends IGenericLocalizedApiResponse {
   email: string;
   contactNumber: string;
 }
