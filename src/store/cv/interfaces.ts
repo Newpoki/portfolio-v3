@@ -1,4 +1,4 @@
-import { ISortOrder, ILocaleCode, IGenericLocalizedApiResponse } from "common";
+import { ISortOrder, ILocaleCode, IGenericLocalizedApiResponse } from "~common";
 
 /** The CvData place */
 interface ICvPlace {

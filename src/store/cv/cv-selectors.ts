@@ -1,4 +1,4 @@
-import { IRootState } from "store/interfaces";
+import { IRootState } from "../interfaces";
 
 /** Returns the cv current filter */
 export const selectCvFilter = (state: IRootState) => {

@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { api } from "common";
+
+import { api } from "~common";
 import { IFetchHomeDataPayload, IHomeData, IHomeState } from "./interfaces";
 
 export const fetchHomeData = createAsyncThunk<IHomeData | undefined, IFetchHomeDataPayload>(

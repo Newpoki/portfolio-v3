@@ -1,7 +1,7 @@
 import { Skeleton, Typography } from "@material-ui/core";
 import { Timeline, TimelineConnector, TimelineSeparator } from "@material-ui/lab";
 
-import { Page } from "common";
+import { Page } from "~common";
 import { CvTimelineContent } from "./cv-timeline-content";
 import { CvTimeLineDot } from "./cv-timeline-dot";
 import { CvTimelineItem } from "./cv-timeline-item";
@@ -34,11 +34,7 @@ export const CvSkeleton = ({ isUnderMd }: ICvSkeletonProps) => {
 
                 <Typography>
                   <Skeleton width="75%" sx={{ mb: 2 }} />
-                  <Skeleton
-                    height={250}
-                    sx={{ mb: 1, borderRadius: "4px/6.7px" }}
-                    variant="rectangular"
-                  />
+                  <Skeleton height={250} sx={{ mb: 1, borderRadius: "4px/6.7px" }} variant="rectangular" />
                   <Skeleton height={50} sx={{ mb: 2 }} />
                 </Typography>
 

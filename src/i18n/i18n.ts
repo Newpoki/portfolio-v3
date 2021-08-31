@@ -3,10 +3,10 @@ import * as ls from "local-storage";
 import i18n from "i18next";
 import LanguageDetector, { CustomDetector } from "i18next-browser-languagedetector";
 
+import { ILocaleCode } from "~common";
+import { CURRENT_LOCALE_LS_KEY, DEFAULT_LOCALE_CODE } from "~store";
 import { frFRTranslation } from "./fr-FR/fr-FR";
 import { enGBTranslation } from "./en-GB/en-GB";
-import { CURRENT_LOCALE_LS_KEY, DEFAULT_LOCALE_CODE } from "store";
-import { ILocaleCode } from "common";
 
 // This custom detector is needed because otherwise, it can store a language like
 // fr, fr-CA, fr-BE, etc and our backend only support fr-FR, so we can't rely  on what the detector returns

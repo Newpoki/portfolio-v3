@@ -1,4 +1,4 @@
-import { IRootState } from "store/interfaces";
+import { IRootState } from "../interfaces";
 
 /** Returns the contact data */
 export const selectContactData = (state: IRootState) => {

@@ -1,4 +1,4 @@
-import { ILocaleCode } from "common";
+import { ILocaleCode } from "~common";
 
 /** The displayed data on the home page */
 export interface IHomeData {

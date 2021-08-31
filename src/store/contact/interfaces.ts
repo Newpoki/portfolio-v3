@@ -1,4 +1,4 @@
-import { ILocaleCode } from "common";
+import { ILocaleCode } from "~common";
 
 /** The contact data */
 export interface IContactData {

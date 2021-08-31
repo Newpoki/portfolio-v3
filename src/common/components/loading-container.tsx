@@ -1,4 +1,5 @@
 import { Dialog } from "@material-ui/core";
+
 import { NetworkErrorDialog } from "./error-dialog/network-error-dialog";
 import { TemporaryNetworkErrorDialog } from "./error-dialog/temporary-network-error-dialog";
 

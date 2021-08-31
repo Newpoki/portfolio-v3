@@ -1,5 +1,6 @@
 import { Skeleton, Typography } from "@material-ui/core";
-import { Page } from "common";
+
+import { Page } from "~common";
 
 export const HomeSkeleton = () => {
   /* Render */

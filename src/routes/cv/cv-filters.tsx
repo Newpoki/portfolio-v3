@@ -1,11 +1,9 @@
 import { Box, ToggleButton, ToggleButtonGroup, useMediaQuery, useTheme } from "@material-ui/core";
 import { MouseEvent, useCallback } from "react";
+import { AssignmentInd as AssignmentIndIcon, DownloadForOffline as DownloadForOfflineIcon } from "@material-ui/icons";
+
+import { useSelector, selectCvFilter, useDispatch, fetchCvData, selectLocaleCode } from "~store";
 import { CvTimelineIcon } from "./cv-timeline-icon";
-import {
-  AssignmentInd as AssignmentIndIcon,
-  DownloadForOffline as DownloadForOfflineIcon,
-} from "@material-ui/icons";
-import { useSelector, selectCvFilter, useDispatch, fetchCvData, selectLocaleCode } from "store";
 
 export const CvFilters = () => {
   /* Store */

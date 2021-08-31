@@ -1,6 +1,6 @@
 import { PaletteMode, useMediaQuery } from "@material-ui/core";
 
-import { selectThemeVariant, useSelector } from "store";
+import { selectThemeVariant, useSelector } from "~store";
 
 export const useCurrentTheme = (): PaletteMode => {
   /* Store */

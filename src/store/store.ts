@@ -1,5 +1,4 @@
 /* eslint-disable no-restricted-imports */
-import { configureStore } from "@reduxjs/toolkit";
 
 import {
   TypedUseSelectorHook,
@@ -7,12 +6,14 @@ import {
   useDispatch as useReactReduxDispatch,
   useSelector as useReactReduxSelector,
 } from "react-redux";
-import { IAppDispatch, IRootState } from "./interfaces";
+import { configureStore } from "@reduxjs/toolkit";
 
+import { IAppDispatch, IRootState } from "./interfaces";
 import settings from "./settings/settings-slice";
 import home from "./home/home-slice";
 import cv from "./cv/cv-slice";
 import contact from "./contact/contact-slice";
+
 
 export const store = configureStore({
   reducer: {

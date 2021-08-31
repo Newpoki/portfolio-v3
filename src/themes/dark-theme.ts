@@ -1,4 +1,5 @@
 import { createTheme, PaletteMode, PaletteOptions } from "@material-ui/core";
+
 import { getBaseTheme } from "./base-theme";
 
 const palette: PaletteOptions = {

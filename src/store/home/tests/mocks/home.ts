@@ -1,4 +1,4 @@
-import { IHomeData } from "store/home/interfaces";
+import { IHomeData } from "../../interfaces";
 
 export const mockedFetchHomeDataResponse: IHomeData = {
   job_libraries: "the job libraries",

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.2.0",
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
     "@material-ui/core": "^5.0.0-beta.0",
@@ -35,11 +36,11 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "test:coverage": "react-scripts test --coverage --watchAll=false",
-    "eject": "react-scripts eject",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "test:coverage": "craco test --coverage --watchAll=false",
+    "eject": "craco eject",
     "lint": "eslint 'src/**/*.{js,ts,tsx}'"
   },
   "eslintConfig": {
@@ -60,8 +61,16 @@
       "last 1 safari version"
     ]
   },
+  "importSort": {
+    ".js, .jsx, .ts, .tsx": {
+      "style": "module",
+      "parser": "typescript"
+    }
+  },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.6",
-    "@types/react-router-dom": "^5.1.8"
+    "@types/react-router-dom": "^5.1.8",
+    "craco-alias": "^3.0.1",
+    "eslint-plugin-import": "^2.24.2"
   }
 }

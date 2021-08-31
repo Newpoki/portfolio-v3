@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { api } from "common";
 import * as ls from "local-storage";
 
+import { api } from "~common";
 import {
   IChangeIsDrawerOpenPayload,
   IChangeLocaleCodePayload,
