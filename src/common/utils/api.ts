@@ -13,9 +13,6 @@ export interface IGenericApiResponse {
    * The same as `id` key, but prefixed with an underscore by strapi to say it's an unique key */
   _id: string;
 
-  /** The locale code of the fetched data */
-  locale: ILocaleCode;
-
   /** The data's creation date  */
   createdAt: string;
 
@@ -47,15 +44,16 @@ export type IStrapiLocalization = Array<{
 /** This interface is extended by every **localized** data that comes from the strapi backend API */
 export type IGenericLocalizedApiResponse = IGenericApiResponse & {
   localizations: IStrapiLocalization;
+
+  /** The locale code of the fetched data */
+  locale: ILocaleCode;
 };
 
 /**
  * Handle the API request to the backend
  * @param {AxiosRequestConfig} config The API call config options
  */
-export const api = async function <TRequestData>(
-  config: AxiosRequestConfig
-): Promise<AxiosResponse<TRequestData>> {
+export const api = async function <TRequestData>(config: AxiosRequestConfig): Promise<AxiosResponse<TRequestData>> {
   return await axios({
     ...config,
     baseURL: process.env.REACT_APP_API_BASE_URL,
