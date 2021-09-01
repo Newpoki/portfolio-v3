@@ -64,12 +64,10 @@ export const Cv = () => {
 
   /* Effects */
 
-  /** Fetch the cv data when coming on the page for the first time */
+  /** Fetch the cv data */
   useEffect(() => {
-    if (!cvData) {
-      dispatch(fetchCvData({ localeCode, order: "DESC", cvTypeFilter: undefined }));
-    }
-  }, [cvData, dispatch, localeCode]);
+    dispatch(fetchCvData({ localeCode, order: "DESC", cvTypeFilter: undefined }));
+  }, [dispatch, localeCode]);
 
   /* Render */
 

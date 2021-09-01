@@ -62,10 +62,8 @@ export const Home = () => {
   /* Effects */
 
   useEffect(() => {
-    if (!homeData) {
-      dispatch(fetchHomeData({ localeCode }));
-    }
-  }, [dispatch, homeData, localeCode]);
+    dispatch(fetchHomeData({ localeCode }));
+  }, [dispatch, localeCode]);
 
   /* Render */
 

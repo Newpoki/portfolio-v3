@@ -53,7 +53,6 @@ export const Markdown = memo(({ children }: IMarkdownProps) => {
           );
         },
         blockquote: ({ children, ...props }) => {
-          console.log({ props });
           return <blockquote className={classes.quote}>{children}</blockquote>;
         },
       }}
