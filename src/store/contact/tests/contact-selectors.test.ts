@@ -1,5 +1,5 @@
 import { selectContactDataErrorCount } from "./../contact-selectors";
-import { mockedState } from "../../../store/tests/mocks/store";
+import { mockedState } from "../../../store/tests/__mocks__/store";
 import { selectContactData, selectIsLoadingContactData } from "../contact-selectors";
 
 describe("contact selectors", () => {

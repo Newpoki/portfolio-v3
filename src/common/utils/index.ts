@@ -8,6 +8,6 @@ export type {
   IGenericLocalizedApiResponse,
   IStrapiLocalization,
 } from "./api";
-export { mockedGenericLocalizedApiResponse, mockedGenericApiResponse } from "./tests/mocks/api";
+export { mockedGenericLocalizedApiResponse, mockedGenericApiResponse } from "./tests/__mocks__/api";
 
 export { convertRgbToRgba } from "./convert-rgb-to-rgba";

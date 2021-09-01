@@ -1,7 +1,7 @@
-import { mockedState } from "../../tests/mocks/store";
+import { mockedState } from "../../tests/__mocks__/store";
 import home, { fetchHomeData } from "../home-slice";
 import { IFetchHomeDataPayload, IHomeState } from "../interfaces";
-import { mockedFetchHomeDataResponse } from "./mocks/home";
+import { mockedFetchHomeDataResponse } from "./__mocks__/home";
 
 describe("home reducer", () => {
   describe(fetchHomeData.toString(), () => {
@@ -29,11 +29,7 @@ describe("home reducer", () => {
     });
 
     describe(fetchHomeData.fulfilled.toString(), () => {
-      const action = fetchHomeData.fulfilled(
-        mockedFetchHomeDataResponse,
-        "home/fetchData",
-        payload
-      );
+      const action = fetchHomeData.fulfilled(mockedFetchHomeDataResponse, "home/fetchData", payload);
 
       const state = mockedState.home;
 
