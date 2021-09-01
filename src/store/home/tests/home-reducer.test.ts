@@ -1,7 +1,7 @@
 import { mockedState } from "../../tests/__mocks__/store";
 import home, { fetchHomeData } from "../home-slice";
 import { IFetchHomeDataPayload, IHomeState } from "../interfaces";
-import { mockedFetchHomeDataResponse } from "./__mocks__/home";
+import { mockedFetchHomeDataResponse } from "./__mocks__/home.mock";
 
 describe("home reducer", () => {
   describe(fetchHomeData.toString(), () => {
