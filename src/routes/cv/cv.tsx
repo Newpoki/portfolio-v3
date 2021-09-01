@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { teal } from "@material-ui/core/colors";
 import { TFunction } from "i18next";
 import { useEffect, useCallback } from "react";
+import { Helmet } from "react-helmet";
 
 import { ILocaleCode, LoadingContainer, Markdown, Page } from "~common";
 import {
@@ -34,7 +35,7 @@ export const formatDate = ({ startedAt, endedAt, localeCode, t }: IFormatDate) =
   const format = localeCode === "fr-FR" ? "DD/MM/YYYY" : "MM/DD/YYYY";
 
   const formatedStart = dayjs(startedAt).format(format);
-  const formatedEnd = endedAt ? dayjs(endedAt).format(format) : t("~common:TODAY");
+  const formatedEnd = endedAt ? dayjs(endedAt).format(format) : t("COMMON:TODAY");
 
   return `${formatedStart} → ${formatedEnd}`;
 };
@@ -52,7 +53,7 @@ export const Cv = () => {
 
   const theme = useTheme();
   const dispatch = useDispatch();
-  const { t } = useTranslation("~common");
+  const { t } = useTranslation(["COMMON", "MENU"]);
   const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
   const isIPhone6OrSmaller = useMediaQuery(theme.breakpoints.down("iphone6"));
 
@@ -73,6 +74,9 @@ export const Cv = () => {
 
   return (
     <Page sx={{ padding: { xs: 0, sm: 2, md: 5 } }}>
+      <Helmet>
+        <title>{t("MENU:LINK.CV")} - Portfolio</title>
+      </Helmet>
       <CvFilters />
       <LoadingContainer
         data={cvData}

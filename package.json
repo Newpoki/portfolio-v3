@@ -27,6 +27,7 @@
     "lodash.debounce": "^4.0.8",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
     "react-i18next": "^11.11.3",
     "react-markdown": "^6.0.2",
     "react-redux": "^7.2.4",
@@ -69,6 +70,7 @@
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.6",
+    "@types/react-helmet": "^6.1.2",
     "@types/react-router-dom": "^5.1.8",
     "axios-mock-adapter": "^1.20.0",
     "craco-alias": "^3.0.1"

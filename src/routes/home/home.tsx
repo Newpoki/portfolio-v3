@@ -1,5 +1,7 @@
 import { PaletteMode, Theme, Typography, useMediaQuery, useTheme } from "@material-ui/core";
 import { useEffect, useCallback } from "react";
+import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 import { LoadingContainer, Page, useCurrentTheme } from "~common";
 import {
@@ -44,6 +46,7 @@ export const Home = () => {
 
   /* Vars */
 
+  const { t } = useTranslation("MENU");
   const theme = useTheme();
   const dispatch = useDispatch();
   const currentTheme = useCurrentTheme();
@@ -68,51 +71,57 @@ export const Home = () => {
   /* Render */
 
   return (
-    <LoadingContainer
-      loader={<HomeSkeleton />}
-      isLoading={isLoadingHomeData}
-      data={homeData}
-      errorCount={homeDataErrorCount}
-      onRetry={handleRetry}
-    >
-      {({ data }) => {
-        return (
-          <Page sx={{ p: 5, justifyContent: { xs: "center" } }}>
-            <Typography
-              variant="h1"
-              sx={{
-                fontSize: { xs: 40, md: 60 },
-                textAlign: { xs: "center", md: "left" },
-                color,
-              }}
-            >
-              {data.name}
-            </Typography>
+    <>
+      <Helmet>
+        <title>{t("MENU:LINK.HOME")} - Portfolio</title>
+      </Helmet>
 
-            <Typography
-              variant="h2"
-              sx={{
-                fontSize: { xs: 20, sm: 25, md: 50 },
-                textAlign: { xs: "center", md: "left" },
-                color,
-              }}
-            >
-              {data.job_title}
-            </Typography>
+      <LoadingContainer
+        loader={<HomeSkeleton />}
+        isLoading={isLoadingHomeData}
+        data={homeData}
+        errorCount={homeDataErrorCount}
+        onRetry={handleRetry}
+      >
+        {({ data }) => {
+          return (
+            <Page sx={{ p: 5, justifyContent: { xs: "center" } }}>
+              <Typography
+                variant="h1"
+                sx={{
+                  fontSize: { xs: 40, md: 60 },
+                  textAlign: { xs: "center", md: "left" },
+                  color,
+                }}
+              >
+                {data.name}
+              </Typography>
 
-            <Typography
-              variant="h2"
-              sx={{
-                fontSize: { xs: 20, sm: 25, md: 50 },
-                textAlign: { xs: "center", md: "left" },
-                color,
-              }}
-            >
-              {data.job_libraries}
-            </Typography>
-          </Page>
-        );
-      }}
-    </LoadingContainer>
+              <Typography
+                variant="h2"
+                sx={{
+                  fontSize: { xs: 20, sm: 25, md: 50 },
+                  textAlign: { xs: "center", md: "left" },
+                  color,
+                }}
+              >
+                {data.job_title}
+              </Typography>
+
+              <Typography
+                variant="h2"
+                sx={{
+                  fontSize: { xs: 20, sm: 25, md: 50 },
+                  textAlign: { xs: "center", md: "left" },
+                  color,
+                }}
+              >
+                {data.job_libraries}
+              </Typography>
+            </Page>
+          );
+        }}
+      </LoadingContainer>
+    </>
   );
 };
