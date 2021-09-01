@@ -23,13 +23,15 @@ const initialState: ISettingsState = {
   },
 };
 
+/**
+ * Fetch the available data from the strapi backend API
+ */
 export const fetchAvailableLocales = createAsyncThunk("settings/fetchAvailableData", async () => {
   const response = await api<Array<ILocale>>({
     method: "get",
     url: "/i18n/locales",
   });
 
-  // TODO: Ajouter meilleur gestion erreur
   return response.data;
 });
 

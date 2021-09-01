@@ -3,6 +3,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { api } from "~common";
 import { IFetchHomeDataPayload, IHomeData, IHomeState } from "./interfaces";
 
+/**
+ * Fetch the home data from the strapi backend API
+ */
 export const fetchHomeData = createAsyncThunk<IHomeData | undefined, IFetchHomeDataPayload>(
   "home/fetchData",
   async ({ localeCode }) => {
@@ -14,7 +17,6 @@ export const fetchHomeData = createAsyncThunk<IHomeData | undefined, IFetchHomeD
       },
     });
 
-    // TODO: Ajouter meilleur gestion erreur
     return response.data;
   }
 );
