@@ -35,6 +35,9 @@ export const frFRSettingsTranslations = {
           },
         },
       },
+      CLOSE_BUTTON: {
+        TEXT: "Fermer",
+      },
     },
   },
 };

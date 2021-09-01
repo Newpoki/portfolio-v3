@@ -263,7 +263,7 @@ export const SettingsDialog = ({ isDialogOpen, toggleIsDialogOpen }: ISettingsDi
             </DialogContent>
             <DialogActions sx={{ justifyContent: "center" }}>
               <Button onClick={onCloseButtonClick} variant="contained" color="primary">
-                Close
+                {t("SETTINGS:DIALOG.CLOSE_BUTTON.TEXT")}
               </Button>
             </DialogActions>
           </Dialog>
