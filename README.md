@@ -1,9 +1,16 @@
 TODO:
 
 - Ajouter onLocalechange callback à la fenêtre des paramètres pour re-recupérer les données dans la nouvelle locale
-  Finir TUs + description thunks
   Voir pourquoi changeIsDrawerOpen appelé a chaque changement de page
   Mettre à jour le CV au format PDF (erreur numéro téléphone)
+  - finir readme
+  - doc
+
+## test
+
+- expliquer test ducks qui sont fait
+- expliquer test des thunks pas conseillé par redux-toolkit
+- amélio futur: test custo mhooks + composants
 
 ## code style
 

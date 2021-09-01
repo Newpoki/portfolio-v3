@@ -10,7 +10,9 @@ const initialState: ICvState = {
   errorCount: 0,
 };
 
-// TODO: Add comment for every thunks
+/**
+ * Fetch the cv data from the strapi backend API
+ */
 export const fetchCvData = createAsyncThunk<IFetchCvDataOutput, IFetchCvDataPayload>(
   "cv/fetchData",
   async ({ localeCode, cvTypeFilter, order }) => {
@@ -24,7 +26,6 @@ export const fetchCvData = createAsyncThunk<IFetchCvDataOutput, IFetchCvDataPayl
       },
     });
 
-    // TODO: Ajouter meilleur gestion erreur
     return {
       data: response.data,
       cvTypeFilter,

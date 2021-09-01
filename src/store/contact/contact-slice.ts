@@ -9,7 +9,9 @@ const initialState: IContactState = {
   errorCount: 0,
 };
 
-// TODO: Ajouter tests sur les home thunks comme pour settings
+/**
+ * Fetch the contact data from the strapi backend API
+ */
 export const fetchContactData = createAsyncThunk<IContactData | undefined, IFetchContactDataPayload>(
   "contact/fetchData",
   async ({ localeCode }) => {
@@ -21,7 +23,6 @@ export const fetchContactData = createAsyncThunk<IContactData | undefined, IFetc
       },
     });
 
-    // TODO: Ajouter meilleur gestion erreur
     return response.data;
   }
 );
