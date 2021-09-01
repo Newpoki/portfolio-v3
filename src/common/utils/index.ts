@@ -10,4 +10,4 @@ export type {
 } from "./api";
 export { mockedGenericLocalizedApiResponse, mockedGenericApiResponse } from "./tests/__mocks__/api";
 
-export { convertRgbToRgba } from "./convert-rgb-to-rgba";
+export { convertColorToRgba } from "./convert-color-to-rgba";

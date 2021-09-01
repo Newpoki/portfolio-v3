@@ -1,7 +1,7 @@
 import { mockedState } from "../../tests/__mocks__/store";
 import cv, { fetchCvData } from "../cv-slice";
 import { IFetchCvDataPayload, ICvState } from "../interfaces";
-import { mockedFetchCvDataOutput, mockedFetchCvDataResponse } from "./__mocks__/cv";
+import { mockedFetchCvDataOutput, mockedFetchCvDataResponse } from "./__mocks__/cv.mock";
 
 describe("cv reducer", () => {
   describe(fetchCvData.toString(), () => {

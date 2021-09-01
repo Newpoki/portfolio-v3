@@ -13,7 +13,7 @@ import settings, {
   changeThemeVariant,
   fetchAvailableLocales,
 } from "../settings-slice";
-import { mockedFetchAvailableLocalesResponse } from "./__mocks__/settings";
+import { mockedFetchAvailableLocalesResponse } from "./__mocks__/settings.mock";
 
 describe("settings reducer", () => {
   describe(changeLocaleCode.toString(), () => {
