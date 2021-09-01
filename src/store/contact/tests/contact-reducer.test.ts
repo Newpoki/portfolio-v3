@@ -1,7 +1,7 @@
-import { mockedState } from "../../../store/tests/mocks/store";
+import { mockedState } from "../../../store/tests/__mocks__/store";
 import contact, { fetchContactData } from "../contact-slice";
 import { IContactState, IFetchContactDataPayload } from "../interfaces";
-import { mockedFetchContactDataResponse } from "./mocks/contact";
+import { mockedFetchContactDataResponse } from "./__mocks__/contact";
 
 describe("contact reducer", () => {
   const payload: IFetchContactDataPayload = {
@@ -28,11 +28,7 @@ describe("contact reducer", () => {
   });
 
   describe(fetchContactData.fulfilled.toString(), () => {
-    const action = fetchContactData.fulfilled(
-      mockedFetchContactDataResponse,
-      "contact/fetchData",
-      payload
-    );
+    const action = fetchContactData.fulfilled(mockedFetchContactDataResponse, "contact/fetchData", payload);
 
     const state = mockedState.contact;
 

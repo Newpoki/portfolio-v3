@@ -1,6 +1,6 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 
-import { mockedState } from "../../tests/mocks/store";
+import { mockedState } from "../../tests/__mocks__/store";
 import {
   IChangeIsDrawerOpenPayload,
   IChangeLocaleCodePayload,
@@ -13,7 +13,7 @@ import settings, {
   changeThemeVariant,
   fetchAvailableLocales,
 } from "../settings-slice";
-import { mockedFetchAvailableLocalesResponse } from "./mocks/settings";
+import { mockedFetchAvailableLocalesResponse } from "./__mocks__/settings";
 
 describe("settings reducer", () => {
   describe(changeLocaleCode.toString(), () => {

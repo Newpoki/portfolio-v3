@@ -1,10 +1,5 @@
-import { mockedState } from "../../tests/mocks/store";
-import {
-  selectCvData,
-  selectCvDataErrorCount,
-  selectCvFilter,
-  selectIsLoadingCvData,
-} from "../cv-selectors";
+import { mockedState } from "../../tests/__mocks__/store";
+import { selectCvData, selectCvDataErrorCount, selectCvFilter, selectIsLoadingCvData } from "../cv-selectors";
 
 describe("cv selectors", () => {
   describe("selectCvFilter", () => {

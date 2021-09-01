@@ -1,4 +1,4 @@
-import { mockedState } from "../../tests/mocks/store";
+import { mockedState } from "../../tests/__mocks__/store";
 import {
   selectAvailableLocales,
   selectAvailableLocalesErrorCount,
