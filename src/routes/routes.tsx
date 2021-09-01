@@ -6,19 +6,22 @@ import { Route, Switch } from "react-router-dom";
 const Home = lazy(() => import("./home"));
 const Cv = lazy(() => import("./cv"));
 const Contact = lazy(() => import("./contact"));
+const NotFound = lazy(() => import("./not-found"));
 
 export const Routes = () => {
   /* Render */
 
   return (
-    <Switch>
-      <Suspense fallback={null}>
+    <Suspense fallback={null}>
+      <Switch>
         <Route path="/" exact component={Home} />
 
         <Route path="/cv" exact component={Cv} />
 
         <Route path="/contact" exact component={Contact} />
-      </Suspense>
-    </Switch>
+
+        <Route path="*" component={NotFound} />
+      </Switch>
+    </Suspense>
   );
 };
