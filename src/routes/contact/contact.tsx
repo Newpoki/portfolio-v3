@@ -61,10 +61,8 @@ export const Contact = () => {
   /* Effects */
 
   useEffect(() => {
-    if (!contactData) {
-      dispatch(fetchContactData({ localeCode }));
-    }
-  }, [contactData, dispatch, localeCode]);
+    dispatch(fetchContactData({ localeCode }));
+  }, [dispatch, localeCode]);
 
   /* Render */
 

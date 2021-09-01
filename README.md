@@ -1,10 +1,30 @@
 TODO:
 
-- Ajouter onLocalechange callback à la fenêtre des paramètres pour re-recupérer les données dans la nouvelle locale
-  Voir pourquoi changeIsDrawerOpen appelé a chaque changement de page
-  Mettre à jour le CV au format PDF (erreur numéro téléphone)
-  - finir readme
-  - doc
+Mettre à jour le CV au format PDF (erreur numéro téléphone)
+
+- finir readme
+- doc
+
+# Portfolio
+
+- Affichage simple CV
+- gestion i18n
+- gestion theme sombre / light
+
+Responsive
+Front: React / Redux / Typescript
+Back: strapi
+DB: mongodb
+
+## setup front
+
+yarn
+
+yarn start
+
+config .env
+
+## setup back
 
 ## test
 
