@@ -35,6 +35,9 @@ export const enGBSettingsTranslations = {
           },
         },
       },
+      CLOSE_BUTTON: {
+        TEXT: "Close",
+      },
     },
   },
 };
