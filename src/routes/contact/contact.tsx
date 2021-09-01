@@ -1,5 +1,7 @@
 import { PaletteMode, Typography, useMediaQuery, useTheme, Theme } from "@material-ui/core";
 import { useCallback, useEffect } from "react";
+import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 import { LoadingContainer, Page, useCurrentTheme } from "~common";
 import {
@@ -44,6 +46,7 @@ export const Contact = () => {
   /* Vars */
 
   const theme = useTheme();
+  const { t } = useTranslation("MENU");
   const dispatch = useDispatch();
   const currentTheme = useCurrentTheme();
   const isIPhone6OrSmaller = useMediaQuery("(max-width:320px)");
@@ -67,45 +70,50 @@ export const Contact = () => {
   /* Render */
 
   return (
-    <LoadingContainer
-      data={contactData}
-      onRetry={handleRetry}
-      errorCount={contactDataErrorCount}
-      isLoading={isLoadingContactData}
-      loader={<div>loading contact</div>}
-    >
-      {({ data }) => {
-        return (
-          <Page sx={{ p: 4, justifyContent: "center" }}>
-            <Typography
-              component="a"
-              variant="h2"
-              href={`mailto:${data.email}`}
-              sx={{
-                fontSize: { xs: 25, sm: 40, md: 50 },
-                textAlign: "center",
-                color,
-                mb: 1,
-              }}
-            >
-              {data.email}
-            </Typography>
+    <>
+      <Helmet>
+        <title>{t("MENU:LINK.CONTACT")} - Portfolio</title>
+      </Helmet>
+      <LoadingContainer
+        data={contactData}
+        onRetry={handleRetry}
+        errorCount={contactDataErrorCount}
+        isLoading={isLoadingContactData}
+        loader={<div>loading contact</div>}
+      >
+        {({ data }) => {
+          return (
+            <Page sx={{ p: 4, justifyContent: "center" }}>
+              <Typography
+                component="a"
+                variant="h2"
+                href={`mailto:${data.email}`}
+                sx={{
+                  fontSize: { xs: 25, sm: 40, md: 50 },
+                  textAlign: "center",
+                  color,
+                  mb: 1,
+                }}
+              >
+                {data.email}
+              </Typography>
 
-            <Typography
-              component="a"
-              variant="h2"
-              href={`tel:${data.contactNumber}`}
-              sx={{
-                fontSize: { xs: 25, sm: 40, md: 50 },
-                textAlign: "center",
-                color,
-              }}
-            >
-              {data.contactNumber}
-            </Typography>
-          </Page>
-        );
-      }}
-    </LoadingContainer>
+              <Typography
+                component="a"
+                variant="h2"
+                href={`tel:${data.contactNumber}`}
+                sx={{
+                  fontSize: { xs: 25, sm: 40, md: 50 },
+                  textAlign: "center",
+                  color,
+                }}
+              >
+                {data.contactNumber}
+              </Typography>
+            </Page>
+          );
+        }}
+      </LoadingContainer>
+    </>
   );
 };
