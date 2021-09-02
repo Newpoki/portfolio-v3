@@ -13,6 +13,7 @@ import {
   useSelector,
   fetchContactData,
 } from "~store";
+import { ContactSkeleton } from "./contact-skeleton";
 
 /**
  * On small screen, with the moon on the dark theme background
@@ -79,7 +80,7 @@ export const Contact = () => {
         onRetry={handleRetry}
         errorCount={contactDataErrorCount}
         isLoading={isLoadingContactData}
-        loader={<div>loading contact</div>}
+        loader={<ContactSkeleton />}
       >
         {({ data }) => {
           return (
