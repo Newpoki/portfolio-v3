@@ -2,7 +2,7 @@
 
 ![the-home-screen](./public/documentation/home.png)
 
-## **Qu'est-ce que le projet**
+## **About**
 
 This repositery host my personal website code. The site itself show my CV, custom project (not actualy, but maybe in the futur), and it's a good way to show my React guidelines. Also, I can try new feature that I'm not used to, like `translation management (i18n)` or theme choice.
 
