@@ -149,7 +149,6 @@ The tests are made with <a href="https://jestjs.io/fr/">Jest</a>.
 At this point, slice's reducer and utils are tested. Thunks are not tested, as redux-toolkit mainterners do not recommend it.
 A needed, important and nice improve, would be to test the hooks, and more importantly, components themself.
 
-## **TODO**
+## Deploy
 
-- TODO: Whitelister IP heroku dans mongdo car sinon impossible de se connecter
-- Mettre à jour le CV au format PDF (erreur numéro téléphone)
+The app is hosted on <a href="https://www.netlify.com/">https://www.netlify.com/</a>. To deploy, just need to push or merge a merge request on master, and, as the github project is linked to netlify, the app will automatically be deployed.
