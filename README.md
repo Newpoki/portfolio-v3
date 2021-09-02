@@ -4,12 +4,12 @@
 
 ## **Qu'est-ce que le projet**
 
-Ce projet est tout simplement mon site personnel. Il me permet de partager mon CV, des projets persos peut être dans le futur, et de pouvoir montrer à qui le souhaite, comment j'aime organiser mon code lors de projet `React`.. J'en profite aussi pour réaliser certaines features que je n'ai pas l'habitude de faire, comme `la gestion de traductions` ou encore le fait d'avoir `plusieurs themes dans une meme application` qui étaient les points de départ de ce projet.
+This repositery host my personal website code. The site itself show my CV, custom project (not actualy, but maybe in the futur), and it's a good way to show my React guidelines. Also, I can try new feature that I'm not used to, like `translation management (i18n)` or theme choice.
 
-## **Installation du projet**
+## **Project setup**
 
 - `git@github.com:Newpoki/portfolio-v3.git`
-- Allez dans le dossier &rarr; `npm i && npm run start` ou `yarn && yarn start`
+- `npm i && npm run start` or `yarn && yarn start`
 
 ## **Stack technique**
 
@@ -17,7 +17,7 @@ The whole app is written in `Typescript`, using `React` to render the view, and 
 The app is bootstraped with <a href="https://github.com/facebook/create-react-app">create-react-app</a> and some settings are extended with the help of <a href="https://github.com/gsoft-inc/craco">Craco </a> (see below)
 Backend is in another GitHub repository, using the <a href="https://strapi.io/">Strapi, Node.JS headless CMS</a> associated with a mongodb database.
 
-### **Lib utilisées**
+### **Dependencies**
 
 - <a href="https://github.com/gsoft-inc/craco">Craco </a>pour changer certaines configuration de base du CRA
 - <a href="https://material-ui.com/">Material UI</a>pour une bibliothèque de composant complète
@@ -53,9 +53,9 @@ Now this is done, to add a new alias:
 - Add it to `tsconfig.extend.json` to get it works.
 - Restrict the use of the import you would use before the alias in `.eslintrc.json > rules > no-restricted-imports`
 
-## **Archi type d'un composant**
+## **Component guideline**
 
-Tout les composants sont "formatés" de la même manière pour ne pas être perdu en passant d'un à l'autre, et pour des raisons de consistance
+All the components are written the same way.
 
 ```javascript
 import thirdPartyLib from '@third-party-lib';
@@ -151,4 +151,5 @@ A needed, important and nice improve, would be to test the hooks, and more impor
 
 ## **TODO**
 
+- TODO: Whitelister IP heroku dans mongdo car sinon impossible de se connecter
 - Mettre à jour le CV au format PDF (erreur numéro téléphone)
